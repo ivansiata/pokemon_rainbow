@@ -1,33 +1,35 @@
 <br>
 <%= form_for(@skill, :html => {class: 'inline-form'}) do |f| %>
-  <% @skill.errors.full_messages.each do |error| %>
+<% if @pokedex.errors.present? %>
   <div class="alert alert-danger">
+  <% @skill.errors.full_messages.each do |error| %>
       <p> <%= error %></p>
-    </div>
   <% end %>
-
-  <div class="row mb-3">
-    <div class="col-md-3"><%= f.label :name %></div>
-    <div class="col-md-9"> <%= f.text_field :name, class: "form-control" %></div>
   </div>
+<% end %>
 
-  <div class="row mb-3">
-    <div class="col-md-3"><%= f.label :power %></div>
-    <div class="col-md-9"> <%= f.text_field :power, class: "form-control" %></div>
-  </div>
+<div class="row mb-3">
+  <div class="col-md-3"><%= f.label :name %></div>
+  <div class="col-md-9"> <%= f.text_field :name, class: "form-control" %></div>
+</div>
 
-  <div class="row mb-3">
-    <div class="col-md-3"><%= f.label :max_pp %></div>
-    <div class="col-md-9"> <%= f.text_field :max_pp, class: "form-control" %></div>
-  </div>
+<div class="row mb-3">
+  <div class="col-md-3"><%= f.label :power %></div>
+  <div class="col-md-9"> <%= f.text_field :power, class: "form-control" %></div>
+</div>
 
-  <div class="row mb-3">
-    <div class="col-md-3"><%= f.label :element_type %></div>
-    <div class="col-md-9"> <%= f.select :element_type, Skill.element_type.options , {:prompt => "Select One"}, class: "form-control" %></div>
-  </div>
+<div class="row mb-3">
+  <div class="col-md-3"><%= f.label :max_pp %></div>
+  <div class="col-md-9"> <%= f.text_field :max_pp, class: "form-control" %></div>
+</div>
 
-  <span><%= f.submit 'Save', class: "btn btn-primary mr-2" %></span>
-  <%= link_to "Back to Skill List", skills_path, class: "btn btn-primary" %>
+<div class="row mb-3">
+  <div class="col-md-3"><%= f.label :element_type %></div>
+  <div class="col-md-9"> <%= f.select :element_type, Skill.element_type.options , {:prompt => "Select One"}, class: "form-control" %></div>
+</div>
+
+<span><%= f.submit 'Save', class: "btn btn-primary mr-2" %></span>
+<%= link_to "Back to Skill List", skills_path, class: "btn btn-primary" %>
 
 
 <% end %>

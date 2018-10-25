@@ -1,0 +1,27 @@
+<br>
+<%= form_for(@pokemon, :html => {class: 'inline-form'}) do |f| %>
+<% if @pokemon.errors.present? %>
+  <div class="alert alert-danger">
+    <% @pokemon.errors.full_messages.each do |error| %>
+
+        <p> <%= error %></p>
+
+    <% end %>
+  </div>
+<% end %>
+
+  <div class="row mb-3">
+    <div class="col-md-3"><%= f.label :name %></div>
+    <div class="col-md-9"> <%= f.text_field :name, class: "form-control" %></div>
+  </div>
+
+  <div class="row mb-3">
+    <div class="col-md-3"><%= f.label :pokedex_id %></div>
+    <div class="col-md-9"> <%= f.select :pokedex_id, options_for_pokedex_id, {prompt: "Select Pokedex"}, class: "form-control" %></div>
+  </div>
+
+  <span><%= f.submit 'Save', class: "btn btn-primary mr-2" %></span>
+  <%= link_to "Back to Pokemon List", pokemons_path, class: "btn btn-primary" %>
+
+
+<% end %>

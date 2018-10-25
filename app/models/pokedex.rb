@@ -6,6 +6,8 @@ class Pokedex < ApplicationRecord
   validates :base_defence, numericality: { only_integer: true, greater_than_or_equal_to: 1 }, presence: true
   validates :base_speed, numericality: { only_integer: true, greater_than_or_equal_to: 1 }, presence: true
 
+  has_many :pokemons
+
   enumerize :element_type, in: [:normal, :fire, :fighting, :water, :flying, :grass, :poison, :electric, :ground, :phychic, :rock, :ice, :bug,
     :dragon, :ghost, :dark, :steel, :fairy]
 end

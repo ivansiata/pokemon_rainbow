@@ -1,10 +1,14 @@
 <br>
 <%= form_for(@pokedex, :html => {class: 'inline-form'}) do |f| %>
-  <% @pokedex.errors.full_messages.each do |error| %>
+<% if @pokedex.errors.present? %>
   <div class="alert alert-danger">
-      <p> <%= error %></p>
-    </div>
-  <% end %>
+    <% @pokedex.errors.full_messages.each do |error| %>
+
+        <p> <%= error %></p>
+
+    <% end %>
+  </div>
+<% end %>
 
   <div class="row mb-3">
     <div class="col-md-3"><%= f.label :name %></div>
