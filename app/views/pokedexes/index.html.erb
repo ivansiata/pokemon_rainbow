@@ -1,0 +1,42 @@
+<h2>Pokedexes List</h2>
+
+<br>
+  <%= link_to "Create new pokedex", new_pokedex_path, :class => "btn btn-primary" %>
+<br><br>
+
+
+
+<table class="table table-bordered mb-0">
+  <thead class="thead-dark">
+    <tr>
+      <th>Name</th>
+      <th>Base Health Point</th>
+      <th>Base Attack</th>
+      <th>Base Defence</th>
+      <th>Base Speed</th>
+      <th>Element Type</th>
+      <th>Image URL</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @pokedexes.each do |pokedex| %>
+    <tr>
+      <td><%= link_to pokedex.name, pokedex_path(pokedex) %> </td>
+      <td> <%= pokedex.base_health_point %> </td>
+      <td> <%= pokedex.base_attack %> </td>
+      <td> <%= pokedex.base_defence %> </td>
+      <td> <%= pokedex.base_speed %> </td>
+      <td> <%= pokedex.element_type %> </td>
+      <td> <%= pokedex.image_url %> </td>
+      <td id="action">
+        <%= link_to "edit", edit_pokedex_path(pokedex), :class => "btn btn-primary" %>
+        <%= link_to "delete", pokedex, method: :delete,
+                                  data: { confirm: "You sure?" }, :class => "btn btn-danger" %>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= will_paginate @pokedexes, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>

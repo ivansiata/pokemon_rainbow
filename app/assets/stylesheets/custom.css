@@ -1,8 +1,7 @@
 #holder{
-  min-height: 92.5vh;
+  min-height: 87vh;
   position:relative;
 }
-
 
 .col-centered{
     float: none;
@@ -18,4 +17,22 @@
   top: 50%;
   left:50%;
   transform: translate(-50%,-50%);
-  }
+}
+
+#holder.container{
+  padding-top: 100px;
+}
+
+#action {
+  text-align:center;
+  width: 200px !important
+}
+
+th,td {
+  text-align: center;
+}
+
+.col-md-3 p{
+  height: 38px;
+  line-height: 38px;
+}

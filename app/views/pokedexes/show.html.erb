@@ -1,0 +1,51 @@
+<div class="row">
+<div class="col-md-6"><%= image_tag("#{@pokedex.image_url}", height: '400', width: '400') %></div>
+  <div class="col-md-6">
+    <div class="row">
+      <div class="col-md-12">
+        <h3> <%= @pokedex.name  %> </h3>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+     <div class="col-md-6">
+        <p>
+          Base Health Point:
+        </p>
+        <p>
+          Base Attack:
+        </p>
+        <p>
+          Base Defence:
+        </p>
+        <p>
+          Base Speed:
+        </p>
+        <p>
+          Element Type:
+        </p>
+      </div>
+
+      <div class="col-md-6">
+
+        <p>
+          <%= @pokedex.base_health_point  %>
+        </p>
+        <p>
+          <%= @pokedex.base_attack %>
+        </p>
+        <p>
+          <%= @pokedex.base_defence %>
+        </p>
+        <p>
+          <%= @pokedex.base_speed %>
+        </p>
+        <p>
+          <%= @pokedex.element_type %>
+        </p>
+      </div>
+
+      <div class="col-md-12"><%= link_to "Back to Index User", pokedexes_path, class: "btn btn-primary" %></div>
+    </div>
+  </div>
+</div>

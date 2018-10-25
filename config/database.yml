@@ -8,7 +8,7 @@
 development:
   adapter: postgresql
   encoding: unicode
-  database: blog_development
+  database: pokemon_development
   pool: 5
   min_messages: warning
 
@@ -18,13 +18,13 @@ development:
 test:
   adapter: postgresql
   encoding: unicode
-  database: blog_test
+  database: pokemon_test
   pool: 5
   min_messages: warning
 
 production:
   adapter: postgresql
   encoding: unicode
-  database: blog_production
+  database: pokemon_production
   pool: 5
   min_messages: warning

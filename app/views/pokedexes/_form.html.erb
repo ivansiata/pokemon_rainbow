@@ -1,0 +1,48 @@
+<br>
+<%= form_for(@pokedex, :html => {class: 'inline-form'}) do |f| %>
+  <% @pokedex.errors.full_messages.each do |error| %>
+  <div class="alert alert-danger">
+      <p> <%= error %></p>
+    </div>
+  <% end %>
+
+  <div class="row mb-3">
+    <div class="col-md-3"><%= f.label :name %></div>
+    <div class="col-md-9"> <%= f.text_field :name, class: "form-control" %></div>
+  </div>
+
+  <div class="row mb-3">
+    <div class="col-md-3"><%= f.label :base_health_point %></div>
+    <div class="col-md-9"> <%= f.text_field :base_health_point, class: "form-control" %></div>
+  </div>
+
+  <div class="row mb-3">
+    <div class="col-md-3"><%= f.label :base_attack %></div>
+    <div class="col-md-9"> <%= f.text_field :base_attack, class: "form-control" %></div>
+  </div>
+
+  <div class="row mb-3">
+    <div class="col-md-3"><%= f.label :base_defence %></div>
+    <div class="col-md-9"> <%= f.text_field :base_defence, class: "form-control" %></div>
+  </div>
+
+  <div class="row mb-3">
+    <div class="col-md-3"><%= f.label :base_speed %></div>
+    <div class="col-md-9"> <%= f.text_field :base_speed, class: "form-control" %></div>
+  </div>
+
+  <div class="row mb-3">
+    <div class="col-md-3"><%= f.label :element_type %></div>
+    <div class="col-md-9"> <%= f.select :element_type, Pokedex.element_type.options , {:prompt => "Select One"}, class: "form-control" %></div>
+  </div>
+
+  <div class="row mb-3">
+    <div class="col-md-3"><%= f.label :image_url %></div>
+    <div class="col-md-9"> <%= f.text_field :image_url, class: "form-control" %></div>
+  </div>
+
+  <span><%= f.submit 'Save', class: "btn btn-primary mr-2" %></span>
+  <%= link_to "Back to Index User", pokedexes_path, class: "btn btn-primary" %>
+
+
+<% end %>
