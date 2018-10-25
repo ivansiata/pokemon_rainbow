@@ -1,0 +1,32 @@
+<%= link_to "Edit", edit_skill_path(@skill), :class => "btn btn-primary" %>
+<%= link_to "Delete", @skill, method: :delete, data: { confirm: "You sure?" }, :class => "btn btn-danger" %>
+<br> <br>
+
+
+
+<div class="row">
+  <div class="col-md-12">
+    <h3> <%= @skill.name  %> </h3>
+  </div>
+</div>
+<br>
+
+<div class="row mb-3">
+  <div class="col-md-6">Power:</div>
+  <div class="col-md-6"> <%= @skill.power %></div>
+</div>
+
+<div class="row mb-3">
+  <div class="col-md-6">Max PP:</div>
+  <div class="col-md-6"> <%= @skill.max_pp %></div>
+</div>
+
+<div class="row mb-3">
+  <div class="col-md-6">Element Type:</div>
+  <div class="col-md-6"> <%= @skill.element_type %></div>
+</div>
+
+<%= link_to "Back to Skill List", skills_path, class: "btn btn-primary" %>
+</div>
+
+</div>

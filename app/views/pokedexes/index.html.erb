@@ -1,8 +1,8 @@
-<h2>Pokedexes List</h2>
+<h2>Pokedex List</h2>
 
 <br>
-  <%= link_to "Create new pokedex", new_pokedex_path, :class => "btn btn-primary" %>
-<br><br>
+  <%= link_to "Create new pokedex", new_pokedex_path, :class => "btn btn-primary mb-2" %>
+<br>
 
 
 
@@ -39,4 +39,6 @@
   </tbody>
 </table>
 
-<%= will_paginate @pokedexes, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
+<div class="mt-1" style="float: right">
+  <%= will_paginate @pokedexes, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
+</div>

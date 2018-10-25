@@ -10,22 +10,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_25_025652) do
+ActiveRecord::Schema.define(version: 2018_10_25_071233) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "pokedexes", force: :cascade do |t|
-    t.string "name", limit: 45
-    t.integer "base_health_point"
-    t.integer "base_attack"
-    t.integer "base_defence"
-    t.integer "base_speed"
-    t.string "element_type"
-    t.string "image_url", limit: 45
+    t.string "name", limit: 45, null: false
+    t.integer "base_health_point", null: false
+    t.integer "base_attack", null: false
+    t.integer "base_defence", null: false
+    t.integer "base_speed", null: false
+    t.string "element_type", null: false
+    t.string "image_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_pokedexes_on_name", unique: true
+  end
+
+  create_table "skills", force: :cascade do |t|
+    t.string "name", limit: 45, null: false
+    t.integer "power", null: false
+    t.integer "max_pp", null: false
+    t.string "element_type", limit: 45, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_skills_on_name", unique: true
   end
 
 end
