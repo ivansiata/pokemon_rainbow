@@ -1,5 +1,8 @@
 class Pokemon < ApplicationRecord
   belongs_to :pokedex
+  has_many :pokemon_skills
+  has_many :skills, through: :pokemon_skills
+
   validates :name, uniqueness: true, length: {maximum: 45}, presence: true
   validates :pokedex_id, presence: true
 

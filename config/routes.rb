@@ -2,7 +2,8 @@ Rails.application.routes.draw do
   root 'static_pages#home'
   resources :pokedexes
   resources :skills
-  resources :pokemons
-
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  resources :pokemons do
+    post :create_pokemon_skill, on: :member
+    delete 'destroy_pokemon_skill/:skill_id', to: 'pokemons#destroy_pokemon_skill', as: "destroy_pokemon_skill", on: :member
+  end
 end

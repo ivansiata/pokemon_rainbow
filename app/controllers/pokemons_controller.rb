@@ -6,6 +6,7 @@ class PokemonsController < ApplicationController
 
   def new
     @pokemon = Pokemon.new
+    @pokemon_skills = PokemonSkill.new
   end
 
   def create
@@ -25,8 +26,30 @@ class PokemonsController < ApplicationController
     end
   end
 
+  def create_pokemon_skill
+    @pokemon_skills = PokemonSkill.new(pokemon_skill_params)
+    @pokemon_skills.pokemon_id = params[:id]
+    @pokemon_skills.current_pp = @pokemon_skills.skill.max_pp
+    @pokemon = Pokemon.find(params[:id])
+    if @pokemon_skills.save
+      flash[:success] = "Pokemon Skill #{@pokemon_skills.skill.name} Added!"
+      redirect_to pokemon_path(params[:id])
+    else
+      render 'show'
+    end
+
+  end
+
+  def destroy_pokemon_skill
+    @pokemon_skills = PokemonSkill.find_by(pokemon_id: params[:id], skill_id: params[:skill_id])
+    @pokemon_skills.destroy
+    flash[:success] = "Pokemon Skill #{@pokemon_skills.skill.name} Destroyed!"
+    redirect_to pokemon_path(@pokemon_skills.pokemon_id)
+  end
+
   def show
     @pokemon = Pokemon.find(params[:id])
+    @pokemon_skills = PokemonSkill.new
   end
 
   def edit
