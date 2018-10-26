@@ -1,4 +1,5 @@
 class PokemonsController < ApplicationController
+  include PokemonsHelper
   def index
     @pokemons = Pokemon.paginate(page: params[:page], per_page:5)
   end
@@ -8,12 +9,46 @@ class PokemonsController < ApplicationController
   end
 
   def create
-    @pokemon = Pokemon.new
-    @pokemon.max_health_point = @pokemon.pokedex.find(params[:pokedex_id]).base_health_point
-    @pokemon.current_health_point = @pokemon.pokedex.find(params[:pokedex_id]).base_health_point
+    @pokemon = Pokemon.new(pokemon_params)
+
+    if @pokemon.valid?
+      @pokemon.max_health_point = @pokemon.pokedex.base_health_point
+      @pokemon.current_health_point = @pokemon.pokedex.base_health_point
+      @pokemon.attack = @pokemon.pokedex.base_attack
+      @pokemon.defence = @pokemon.pokedex.base_defence
+      @pokemon.speed = @pokemon.pokedex.base_speed
+      @pokemon.save
+      flash[:success] = "Pokemon #{@pokemon.name} created!"
+      redirect_to pokemon_path(@pokemon)
+    else
+      render 'new'
+    end
   end
 
   def show
-
+    @pokemon = Pokemon.find(params[:id])
   end
+
+  def edit
+    @pokemon = Pokemon.find(params[:id])
+  end
+
+  def update
+    @pokemon = Pokemon.find(params[:id])
+
+    if @pokemon.update_attributes(pokemon_edit_params)
+      flash[:success] = "Pokemon #{@pokemon.name} updated!"
+      redirect_to pokemon_path(@pokemon)
+    else
+      render 'edit'
+    end
+  end
+
+  def destroy
+    @pokemon = Pokemon.find(params[:id])
+    @pokemon.destroy
+    flash[:success] = "Pokemon #{@pokemon.name} deleted!"
+    redirect_to pokemons_path
+  end
+
 end

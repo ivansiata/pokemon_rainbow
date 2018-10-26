@@ -1,0 +1,96 @@
+<div class="row">
+  <div class="col-md-12">
+    <%= link_to "Heal", "#", class: "btn btn-primary" %>
+    <%= link_to "Edit", edit_pokemon_path(@pokemon), class: "btn btn-primary" %>
+    <%= link_to "Delete", @pokemon, method: :delete,
+                                  data: { confirm: "You sure?" }, class: "btn btn-danger" %>
+    <%= link_to "Back to Pokemon List", pokemons_path, class: "btn btn-primary" %>
+    <br><br>
+    <div class="row">
+      <div class="col-md-6"><%= image_tag(@pokemon.pokedex.image_url, height: '400', width: '400') %></div>
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-12">
+            <h3> <%= @pokemon.name  %> </h3>
+          </div>
+        <br>
+          <div class="col-md-12">
+
+            <div class="row mb-3">
+              <div class="col-md-6">Level :</div>
+              <div class="col-md-6"> <%= @pokemon.level %></div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-md-6">Max Health Point :</div>
+              <div class="col-md-6"> <%= @pokemon.max_health_point %></div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-md-6">Current Health Point :</div>
+              <div class="col-md-6"> <%= @pokemon.current_health_point %></div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-md-6">Attack :</div>
+              <div class="col-md-6"> <%= @pokemon.attack %></div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-md-6">Defence :</div>
+              <div class="col-md-6"> <%= @pokemon.defence %></div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-md-6">Speed :</div>
+              <div class="col-md-6"> <%= @pokemon.speed %></div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-md-6">Current Experience :</div>
+              <div class="col-md-6"> <%= @pokemon.current_experience %></div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+
+      <div class="col-md-12">
+
+        <table class="table table-bordered mb-0 mt-4">
+          <thead class="thead-dark">
+            <tr>
+              <th>Name</th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>  </td>
+              <td>  </td>
+              <td>  </td>
+              <td>  </td>
+              <td>  </td>
+              <td>  </td>
+              <td>  </td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+
+  </div>
+  <div class="col-md-12">
+
+  </div>
+</div>

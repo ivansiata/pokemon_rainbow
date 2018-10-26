@@ -1,0 +1,58 @@
+<h2>Edit Pokemon</h2>
+<br>
+<%= form_for(@pokemon, :html => {class: 'inline-form'}) do |f| %>
+  <% if @pokemon.errors.present? %>
+    <div class="alert alert-danger">
+      <% @pokemon.errors.full_messages.each do |error| %>
+
+          <p> <%= error %></p>
+
+      <% end %>
+    </div>
+  <% end %>
+
+  <div class="row mb-3">
+    <div class="col-md-3"><%= f.label :pokedex_id %></div>
+    <div class="col-md-9"> <%= @pokemon.pokedex.name %></div>
+  </div>
+
+  <div class="row mb-3">
+    <div class="col-md-3"><%= f.label :level %></div>
+    <div class="col-md-9"> <%= @pokemon.level %></div>
+  </div>
+
+  <div class="row mb-3">
+    <div class="col-md-3"><%= f.label :current_experience %></div>
+    <div class="col-md-9"> <%= @pokemon.current_experience %></div>
+  </div>
+
+  <div class="row mb-3">
+    <div class="col-md-3"><%= f.label :max_health_point %></div>
+    <div class="col-md-9"> <%= f.text_field :max_health_point, class: "form-control" %></div>
+  </div>
+
+  <div class="row mb-3">
+    <div class="col-md-3"><%= f.label :current_health_point %></div>
+    <div class="col-md-9"> <%= f.text_field :current_health_point, class: "form-control" %></div>
+  </div>
+
+  <div class="row mb-3">
+    <div class="col-md-3"><%= f.label :attack %></div>
+    <div class="col-md-9"> <%= f.text_field :attack, class: "form-control" %></div>
+  </div>
+
+  <div class="row mb-3">
+    <div class="col-md-3"><%= f.label :defence %></div>
+    <div class="col-md-9"> <%= f.text_field :defence, class: "form-control" %></div>
+  </div>
+
+  <div class="row mb-3">
+    <div class="col-md-3"><%= f.label :speed %></div>
+    <div class="col-md-9"> <%= f.text_field :speed, class: "form-control" %></div>
+  </div>
+
+  <span><%= f.submit 'Save', class: "btn btn-primary mr-2" %></span>
+  <%= link_to "Back to Pokemon List", pokemons_path, class: "btn btn-primary" %>
+
+
+<% end %>

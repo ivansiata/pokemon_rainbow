@@ -1,6 +1,6 @@
 <br>
 <%= form_for(@skill, :html => {class: 'inline-form'}) do |f| %>
-<% if @pokedex.errors.present? %>
+<% if @skill.errors.present? %>
   <div class="alert alert-danger">
   <% @skill.errors.full_messages.each do |error| %>
       <p> <%= error %></p>

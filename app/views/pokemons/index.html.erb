@@ -4,8 +4,6 @@
   <%= link_to "Create new pokemon", new_pokemon_path, :class => "btn btn-primary mb-2" %>
 <br>
 
-
-
 <table class="table table-bordered mb-0">
   <thead class="thead-dark">
     <tr>
@@ -17,6 +15,8 @@
       <th>Defence</th>
       <th>Speed</th>
       <th>Current Experience</th>
+      <th>Image</th>
+      <th>Action</th>
     </tr>
   </thead>
   <tbody>
@@ -30,6 +30,7 @@
       <td> <%= pokemon.defence %> </td>
       <td> <%= pokemon.speed %> </td>
       <td> <%= pokemon.current_health_point %> </td>
+      <td> <%= image_tag(pokemon.pokedex.image_url, height: 30, width: 30) %> </td>
       <td id="action">
         <%= link_to "edit", edit_pokemon_path(pokemon), :class => "btn btn-primary" %>
         <%= link_to "delete", pokemon, method: :delete,
