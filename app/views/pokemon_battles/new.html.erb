@@ -1,0 +1,30 @@
+<div class="col-centered mb-5"><h2>SELECT POKEMON</h2></div>
+
+<%= form_for(@pokemon_battles, :html => {class: 'inline-form'}) do |f| %>
+
+<% if @pokemon_battles.errors.present? %>
+  <div class="alert alert-danger">
+    <% @pokemon_battles.errors.full_messages.each do |error| %>
+        <p> <%= error %></p>
+    <% end %>
+  </div>
+<% end %>
+
+<div class="row">
+  <div class="col-md-5">
+    <%= f.label "Pokemon 1" %>
+    <%= f.select :pokemon1_id, options_for_pokemon_id, {:prompt => "Select One"}, class: "form-control" %>
+  </div>
+  <div class="col-md-2 col-centered">
+    <h1>VS</h1>
+    <%= f.submit "Battle!", class: "btn btn-primary mt-5  " %>
+  </div>
+  <div class="col-md-5">
+    <%= f.label "Pokemon 2" %>
+    <%= f.select :pokemon2_id, options_for_pokemon_id, {:prompt => "Select One"}, class: "form-control" %>
+  </div>
+</div>
+
+<% end %>
+
+<%= link_to "Back to Battle List", pokemon_battles_path, class: "btn btn-primary" %>

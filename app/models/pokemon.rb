@@ -2,6 +2,8 @@ class Pokemon < ApplicationRecord
   belongs_to :pokedex
   has_many :pokemon_skills
   has_many :skills, through: :pokemon_skills
+  has_many :pokemon_battles, class_name: 'PokemonBattle', foreign_key: 'pokemon1_id'
+  has_many :pokemon_battles, class_name: 'PokemonBattle', foreign_key: 'pokemon2_id'
 
   validates :name, presence: true, uniqueness: {scope: [:pokedex_id]}, length: {maximum: 45}
   validates :pokedex_id, presence: true

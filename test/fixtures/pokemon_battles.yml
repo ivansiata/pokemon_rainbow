@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  pokemon1_id: 1
+  pokemon2_id: 1
+  current_turn: 1
+  state: MyString
+  pokemon_winner_id: 1
+  pokemon_loser_id: 1
+  experience_gain: 1
+  pokemon1_max_health_point: 1
+  pokemon2_max_health_point: 1
+
+two:
+  pokemon1_id: 1
+  pokemon2_id: 1
+  current_turn: 1
+  state: MyString
+  pokemon_winner_id: 1
+  pokemon_loser_id: 1
+  experience_gain: 1
+  pokemon1_max_health_point: 1
+  pokemon2_max_health_point: 1

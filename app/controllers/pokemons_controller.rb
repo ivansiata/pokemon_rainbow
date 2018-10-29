@@ -12,12 +12,13 @@ class PokemonsController < ApplicationController
   def create
     @pokemon = Pokemon.new(pokemon_params)
 
+    @pokemon.max_health_point = @pokemon.pokedex.base_health_point
+    @pokemon.current_health_point = @pokemon.pokedex.base_health_point
+    @pokemon.attack = @pokemon.pokedex.base_attack
+    @pokemon.defence = @pokemon.pokedex.base_defence
+    @pokemon.speed = @pokemon.pokedex.base_speed
+
     if @pokemon.valid?
-      @pokemon.max_health_point = @pokemon.pokedex.base_health_point
-      @pokemon.current_health_point = @pokemon.pokedex.base_health_point
-      @pokemon.attack = @pokemon.pokedex.base_attack
-      @pokemon.defence = @pokemon.pokedex.base_defence
-      @pokemon.speed = @pokemon.pokedex.base_speed
       @pokemon.save
       flash[:success] = "Pokemon #{@pokemon.name} created!"
       redirect_to pokemon_path(@pokemon)
