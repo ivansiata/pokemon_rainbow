@@ -1,15 +1,14 @@
 class PokemonSkill < ApplicationRecord
-  extend Enumerize
   belongs_to :pokemon
   belongs_to :skill
 
   validates :skill_id, uniqueness: { scope: [:pokemon_id] }
-  validates :current_pp, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
-  validate :count_pokemon
+  validates :current_pp, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
+  validate :skill_must_be_less_or_equal_to_four
   validate :current_pp_not_greater_than_max_pp
-  validate :input_skill
+  validate :element_type_of_skill_must_be_equal_to_pokedex
 
-  def count_pokemon
+  def skill_must_be_less_or_equal_to_four
     if PokemonSkill.where(pokemon_id: self.pokemon_id).count >= 4
       errors.add(:pokemon_id, "Pokemon already had 4 skills")
     end
@@ -21,8 +20,8 @@ class PokemonSkill < ApplicationRecord
     end
   end
 
-  def input_skill
-    unless Skill.where(element_type: self.pokemon.pokedex.element_type).ids.include? skill_id
+  def element_type_of_skill_must_be_equal_to_pokedex
+    if !Skill.where(element_type: self.pokemon.pokedex.element_type).ids.include? skill_id
       errors.add(:skill_id, "error")
     end
   end
