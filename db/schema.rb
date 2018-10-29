@@ -48,7 +48,7 @@ ActiveRecord::Schema.define(version: 2018_10_26_034726) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "pokedex_id"
-    t.index ["name"], name: "index_pokemons_on_name", unique: true
+    t.index ["name", "pokedex_id"], name: "index_pokemons_on_name_and_pokedex_id", unique: true
   end
 
   create_table "skills", force: :cascade do |t|

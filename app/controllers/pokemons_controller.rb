@@ -35,6 +35,9 @@ class PokemonsController < ApplicationController
       flash[:success] = "Pokemon Skill #{@pokemon_skills.skill.name} Added!"
       redirect_to pokemon_path(params[:id])
     else
+      @options_for_skills = Skill.where(element_type: @pokemon.pokedex.element_type).map do |p|
+        [p.name, p.id]
+      end
       render 'show'
     end
 
@@ -50,6 +53,10 @@ class PokemonsController < ApplicationController
   def show
     @pokemon = Pokemon.find(params[:id])
     @pokemon_skills = PokemonSkill.new
+
+    @options_for_skills = Skill.where(element_type: @pokemon.pokedex.element_type).map do |p|
+      [p.name, p.id]
+    end
   end
 
   def edit

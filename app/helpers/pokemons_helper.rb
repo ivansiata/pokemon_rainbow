@@ -18,8 +18,6 @@ module PokemonsHelper
   end
 
   def options_for_skill
-    Skill.all.map do |p|
-      [p.name, p.id]
-    end
+
   end
 end

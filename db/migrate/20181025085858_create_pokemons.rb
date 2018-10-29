@@ -12,8 +12,8 @@ class CreatePokemons < ActiveRecord::Migration[5.2]
 
       t.timestamps
     end
-    add_index :pokemons, :name, unique: true
     add_column :pokemons, :pokedex_id, :integer, null: :false
     add_foreign_key :pokemons, :pokedexes, column: :pokedex_id
+    add_index :pokemons, [:name, :pokedex_id], unique: true
   end
 end

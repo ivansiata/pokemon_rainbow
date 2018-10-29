@@ -70,7 +70,7 @@
         <%= form_for(:pokemon_skill, url: create_pokemon_skill_pokemon_path(@pokemon), :html => {class: 'inline-form'}) do |f| %>
           <div class="row mb-3 mt-3">
             <div class="col-md-1"><%= f.label "Add Skill", class: "pt-2"%></div>
-            <div class="col-md-4"><%= f.select :skill_id, options_for_skill, {prompt: "Select Skill"}, class: "form-control" %></div>
+            <div class="col-md-4"><%= f.select :skill_id, @options_for_skills, {prompt: "Select Skill"}, class: "form-control" %></div>
             <div class="col-md-1"><%= f.submit "Save", class: "btn btn-primary"%></div>
           </div>
         <% end %>
