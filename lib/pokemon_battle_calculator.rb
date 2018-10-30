@@ -1,5 +1,4 @@
 class PokemonBattleCalculator
-
   RESISTANCE_LIST = {
        normal: {
            rock: 0.5,

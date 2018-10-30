@@ -1,10 +1,10 @@
 <div class="col-centered mb-5"><h2>SELECT POKEMON</h2></div>
 
-<%= form_for(@pokemon_battles, :html => {class: 'inline-form'}) do |f| %>
+<%= form_for(@pokemon_battle, :html => {class: 'inline-form'}) do |f| %>
 
-<% if @pokemon_battles.errors.present? %>
+<% if @pokemon_battle.errors.present? %>
   <div class="alert alert-danger">
-    <% @pokemon_battles.errors.full_messages.each do |error| %>
+    <% @pokemon_battle.errors.full_messages.each do |error| %>
         <p> <%= error %></p>
     <% end %>
   </div>

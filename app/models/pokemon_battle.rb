@@ -5,8 +5,7 @@ class PokemonBattle < ApplicationRecord
 
   validate :pokemon_id_battle_must_be_different
   validate :pokemons_current_hp_must_greater_than_zero
-  validate :pokemon_id_ongoing_must_be_less_than_two
-  validate :battle_skill_must_be_equal_to_pokemon_skills, on: :update
+  validate :pokemon_id_ongoing_must_be_less_than_two, on: :create
   enumerize :state, in: [:ongoing, :finished]
 
 
@@ -35,9 +34,5 @@ class PokemonBattle < ApplicationRecord
     end
   end
 
-  def battle_skill_must_be_equal_to_pokemon_skills
-    if !PokemonSkill.where(pokemon_id: self.pokemon1.id).ids.include? skill_id
-      errors.add(:skill_id, "error")
-    end
-  end
+
 end

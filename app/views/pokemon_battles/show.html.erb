@@ -1,59 +1,68 @@
-<center class="mb-5"><h1>Pokemon Battle</h1></center>
-<%= form_for(:pokemon_skill, url: create_pokemon_skill_pokemon_path(@pokemon_battles), :html => {class: 'inline-form'}) do |f| %>
+<center class="mb-5">
+  <h1>Pokemon Battle</h1>
+  <h4>State : <%= @pokemon_battle.state %></h4>
+  <h4>Turn : <%= @pokemon_battle.current_turn %></h4>
+</center>
+
+
 <div class='row'>
-  <div class="col-md-5 col-centered">
-    <h4 class="mb-3">Pokemon 1</h4>
-    <span class="ml-5"><%= image_tag(@pokemon_battles.pokemon1.pokedex.image_url, height: '300', width: '300') %> </span>
-    <div class="row mt-4 mb-3">
-      <div class="col-md-5">Name</div>
-      <div class="col-md-2">:</div>
-      <div class="col-md-5"><%= @pokemon_battles.pokemon1.name %></div>
+
+    <div class="col-md-5 col-centered">
+      <%= form_for(:attack, url: pokemon_battle_path(@pokemon_battle), method: :patch, :html => {class: 'inline-form'}) do |f| %>
+        <h4 class="mb-3"><%= @pokemon_battle.pokemon1.name %></h4>
+        <span class="ml-5"><%= image_tag(@pokemon_battle.pokemon1.pokedex.image_url, height: '300', width: '300') %> </span>
+        <div class="row mb-3">
+          <div class="col-md-5">HP</div>
+          <div class="col-md-2">:</div>
+          <div class="col-md-5"><%= @pokemon_battle.pokemon1.current_health_point %> / <%= @pokemon_battle.pokemon1.max_health_point %></div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-md-5">Skill</div>
+          <div class="col-md-2">:</div>
+          <div class="col-md-5"><%= f.select :skill_id, @options_for_skills1, {prompt: "Select Skill"}, class: "form-control" %></div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-md-12">
+            <% if @pokemon_battle.current_turn % 2 != 0 %>
+              <%= f.submit "Attack", class: "btn btn-primary" %>
+              <%= f.submit "Surrender", class: "btn btn-danger" %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
     </div>
-    <div class="row mb-3">
-      <div class="col-md-5">HP</div>
-      <div class="col-md-2">:</div>
-      <div class="col-md-5"><%= @pokemon_battles.pokemon1.current_health_point %> / <%= @pokemon_battles.pokemon1.max_health_point %></div>
-    </div>
-    <div class="row mb-3">
-      <div class="col-md-5">Skill</div>
-      <div class="col-md-2">:</div>
-      <div class="col-md-5"><%= f.select :skill_id, @options_for_skills1, {prompt: "Select Skill"}, class: "form-control" %></div>
-    </div>
-    <div class="row mb-3">
-      <div class="col-md-12">
-        <%= f.submit "Attack", class: "btn btn-primary" %>
-        <%= f.submit "Surrender", class: "btn btn-danger" %>
-      </div>
-    </div>
-  </div>
+
+
   <div class="col-md-2"></div>
+
+
   <div class="col-md-5 col-centered">
-    <h4 class="mb-3">Pokemon 2</h4>
-    <span class="ml-5"><%= image_tag(@pokemon_battles.pokemon2.pokedex.image_url, height: '300', width: '300') %> </span>
-    <div class="row mt-4 mb-3">
-      <div class="col-md-5">Name</div>
-      <div class="col-md-2">:</div>
-      <div class="col-md-5"><%= @pokemon_battles.pokemon2.name %></div>
-    </div>
-    <div class="row mb-3">
-      <div class="col-md-5">HP</div>
-      <div class="col-md-2">:</div>
-      <div class="col-md-5"><%= @pokemon_battles.pokemon2.current_health_point %> / <%= @pokemon_battles.pokemon1.max_health_point %></div>
-    </div>
-    <div class="row mb-3">
-      <div class="col-md-5">Skill</div>
-      <div class="col-md-2">:</div>
-      <div class="col-md-5"><%= f.select :skill_id, @options_for_skills2, {prompt: "Select Skill"}, class: "form-control" %></div>
-    </div>
-    <div class="row mb-3">
-      <div class="col-md-12">
-        <%= f.submit "Attack", class: "btn btn-primary" %>
-        <%= f.submit "Surrender", class: "btn btn-danger" %>
+    <%= form_for(:attack, url: pokemon_battle_path(@pokemon_battle), method: :patch, :html => {class: 'inline-form'}) do |f| %>
+      <h4 class="mb-3"><%= @pokemon_battle.pokemon2.name %></h4>
+      <span class="ml-5"><%= image_tag(@pokemon_battle.pokemon2.pokedex.image_url, height: '300', width: '300') %> </span>
+      <div class="row mb-3">
+        <div class="col-md-5">HP</div>
+        <div class="col-md-2">:</div>
+        <div class="col-md-5"><%= @pokemon_battle.pokemon2.current_health_point %> / <%= @pokemon_battle.pokemon1.max_health_point %></div>
       </div>
-    </div>
+      <div class="row mb-3">
+        <div class="col-md-5">Skill</div>
+        <div class="col-md-2">:</div>
+        <div class="col-md-5"><%= f.select :skill_id, @options_for_skills2, {prompt: "Select Skill"}, class: "form-control" %></div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-md-12">
+          <% if @pokemon_battle.current_turn % 2 == 0 %>
+            <%= f.submit "Attack", class: "btn btn-primary" %>
+            <%= f.submit "Surrender", class: "btn btn-danger" %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
   </div>
+
 </div>
 
-<% end %>
+
 
 <%= link_to "Back to Battle List", pokemon_battles_path, class: "btn btn-primary mt-5" %>

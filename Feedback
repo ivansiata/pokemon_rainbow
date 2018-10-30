@@ -6,3 +6,9 @@ Feedback:
 
 #damage = ((((2 * attacker.level / 5 + 2) * attacker.attack * skill.power / defender.defence) / 50) + 2)
 #    * STAB * Weakness/Resistance * (RandomNumber / 100)
+
+  def battle_skill_must_be_equal_to_pokemon_skills
+    if !PokemonSkill.where(pokemon_id: self.pokemon1.id).ids.include? skill_id
+      errors.add(:skill_id, "error")
+    end
+  end
