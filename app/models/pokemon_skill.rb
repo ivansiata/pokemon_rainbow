@@ -21,7 +21,7 @@ class PokemonSkill < ApplicationRecord
   end
 
   def element_type_of_skill_must_be_equal_to_pokedex
-    if !Skill.where(element_type: self.pokemon1.pokedex.element_type).ids.include? skill_id
+    if !Skill.where(element_type: self.pokemon.pokedex.element_type).ids.include? skill_id
       errors.add(:skill_id, "error")
     end
   end

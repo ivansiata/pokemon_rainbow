@@ -4,8 +4,9 @@ class PokemonBattle < ApplicationRecord
   belongs_to :pokemon2, class_name: 'Pokemon'
 
   validate :pokemon_id_battle_must_be_different
+  validate :pokemons_current_hp_must_greater_than_zero
   validate :pokemon_id_ongoing_must_be_less_than_two
-  #validate :battle_skill_must_be_equal_to_pokemon_skills, on: :update
+  validate :battle_skill_must_be_equal_to_pokemon_skills, on: :update
   enumerize :state, in: [:ongoing, :finished]
 
 
@@ -17,13 +18,20 @@ class PokemonBattle < ApplicationRecord
     end
   end
 
-  def pokemon_id_ongoing_must_be_less_than_two
-    if PokemonBattle.where(pokemon1_id: [self.pokemon1_id, self.pokemon2_id]).count >=1
-      errors.add(:pokemon_1, "still on going")
+  def pokemons_current_hp_must_greater_than_zero
+    if self.pokemon1.current_health_point < 1
+      errors.add(:pokemon_1, "HP is zero")
     end
 
-    if PokemonBattle.where(pokemon2_id: [self.pokemon1_id, self.pokemon2_id]).count >=1
-      errors.add(:pokemon_2, "still on going")
+    if self.pokemon2.current_health_point < 1
+      errors.add(:pokemon_2, "HP is zero")
+    end
+  end
+
+  def pokemon_id_ongoing_must_be_less_than_two
+
+    if PokemonBattle.where(pokemon1_id: [self.pokemon1_id, self.pokemon2_id], state: "ongoing").count >=1 || PokemonBattle.where(pokemon2_id: [self.pokemon1_id, self.pokemon2_id], state: "ongoing").count >=1
+      errors.add(:pokemon, "1 or Pokemon 2 still on going")
     end
   end
 
