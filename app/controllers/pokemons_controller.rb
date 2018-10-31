@@ -29,17 +29,27 @@ class PokemonsController < ApplicationController
 
   def create_pokemon_skill
     @pokemon_skills = PokemonSkill.new(pokemon_skill_params)
-    @pokemon_skills.pokemon_id = params[:id]
-    @pokemon_skills.current_pp = @pokemon_skills.skill.max_pp
     @pokemon = Pokemon.find(params[:id])
-    if @pokemon_skills.save
-      flash[:success] = "Pokemon Skill #{@pokemon_skills.skill.name} Added!"
-      redirect_to pokemon_path(params[:id])
+    if params[:pokemon_skill][:skill_id].present?
+      @pokemon_skills.pokemon_id = params[:id]
+      @pokemon_skills.current_pp = @pokemon_skills.skill.max_pp
+
+      if @pokemon_skills.save
+        flash[:success] = "Pokemon Skill #{@pokemon_skills.skill.name} Added!"
+        redirect_to pokemon_path(params[:id])
+      else
+        @options_for_skills = Skill.where(element_type: @pokemon.pokedex.element_type).map do |p|
+          [p.name, p.id]
+        end
+        render 'show'
+      end
+
     else
       @options_for_skills = Skill.where(element_type: @pokemon.pokedex.element_type).map do |p|
-        [p.name, p.id]
-      end
-      render 'show'
+          [p.name, p.id]
+        end
+        flash.now[:danger] = "Skill cannot be empty"
+        render 'show'
     end
 
   end

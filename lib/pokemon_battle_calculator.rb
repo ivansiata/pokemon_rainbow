@@ -158,11 +158,30 @@ class PokemonBattleCalculator
        }
   }
 
+  Stats = Struct.new(:health_point, :attack_point, :defence_point, :speed_point)
+
   def self.calculate_damage(attacker, defender, skill)
     stab = (skill.element_type == attacker.pokedex.element_type) ? 1.5 : 1
     resistance = RESISTANCE_LIST[skill.element_type.to_sym][defender.pokedex.element_type.to_sym]
     resistance = 1 if resistance.nil?
     damage = (((((2 * attacker.level.to_f / 5 + 2) * attacker.attack * skill.power / defender.defence) / 50) + 2) * stab * resistance * (rand(85..100).to_f / 100)).round
+  end
+
+  def self.calculate_experience(enemy_level)
+    gain = rand(20..150) * enemy_level
+  end
+
+  def self.level_up?(winner_level, total_experience)
+    limit = 2**winner_level * 100
+    if total_experience >= limit
+      return true
+    else
+      return false
+    end
+  end
+
+  def self.calculate_level_up_extra_stats
+    output = Stats.new(rand(10..20), rand(1..5), rand(1..5), rand(1..5))
   end
 
 end

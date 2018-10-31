@@ -2,7 +2,7 @@ class PokemonBattlesController < ApplicationController
   include PokemonBattlesHelper
 
   def index
-    @pokemon_battles = PokemonBattle.paginate(page: params[:page], per_page:5)
+    @pokemon_battles = PokemonBattle.paginate(page: params[:page], per_page:5).order('created_at DESC')
   end
 
   def new
@@ -69,6 +69,20 @@ class PokemonBattlesController < ApplicationController
                 @pokemon_battle.state = "finished"
                 @pokemon_battle.pokemon_loser_id = defender.id
                 @pokemon_battle.pokemon_winner_id = attacker.id
+
+                experience_gain = PokemonBattleCalculator.calculate_experience(defender.level)
+                attacker.current_experience = attacker.current_experience + experience_gain
+                @pokemon_battle.experience_gain = experience_gain
+
+                while PokemonBattleCalculator.level_up?(attacker.level, attacker.current_experience)
+                  attacker.level = attacker.level + 1
+                  output = PokemonBattleCalculator.calculate_level_up_extra_stats
+                  attacker.max_health_point = attacker.max_health_point + output[:health_point]
+                  attacker.attack = attacker.attack + output[:attack_point]
+                  attacker.defence = attacker.defence + output[:defence_point]
+                  attacker.speed = attacker.speed + output[:speed_point]
+                end
+
               end
 
               attacker.save
@@ -79,16 +93,12 @@ class PokemonBattlesController < ApplicationController
 
           else
 
-            @options_for_skills1 = @pokemon_battle.pokemon1.skills.map do |skill| [skill.name, skill.id] end
-            @options_for_skills2 = @pokemon_battle.pokemon2.skills.map do |skill| [skill.name, skill.id] end
             flash.now[:danger] = "Skill PP is zero."
             render 'show'
 
           end
         else
 
-          @options_for_skills1 = @pokemon_battle.pokemon1.skills.map do |skill| [skill.name, skill.id] end
-          @options_for_skills2 = @pokemon_battle.pokemon2.skills.map do |skill| [skill.name, skill.id] end
           flash.now[:danger] = "Skill must be chosen."
           render 'show'
 
@@ -100,15 +110,30 @@ class PokemonBattlesController < ApplicationController
          @pokemon_battle.pokemon_winner_id = defender.id
          @pokemon_battle.state = "finished"
          @pokemon_battle.current_turn = @pokemon_battle.current_turn + 1
+
+         experience_gain = PokemonBattleCalculator.calculate_experience(attacker.level)
+         defender.current_experience = defender.current_experience + experience_gain
+         @pokemon_battle.experience_gain = experience_gain
+
+         while PokemonBattleCalculator.level_up?(defender.level, defender.current_experience)
+
+            defender.level = defender.level + 1
+            output = PokemonBattleCalculator.calculate_level_up_extra_stats
+            defender.max_health_point = defender.max_health_point + output[:health_point]
+            defender.attack = defender.attack + output[:attack_point]
+            defender.defence = defender.defence + output[:defence_point]
+            defender.speed = defender.speed + output[:speed_point]
+
+         end
+
          @pokemon_battle.save
-         attacker.save
+         defender.save
 
          redirect_to pokemon_battle_path(@pokemon_battle)
 
       end
     else
-      @options_for_skills1 = @pokemon_battle.pokemon1.skills.map do |skill| [skill.name, skill.id] end
-      @options_for_skills2 = @pokemon_battle.pokemon2.skills.map do |skill| [skill.name, skill.id] end
+
       flash.now[:danger] = "Wrong pokemon turn"
       render 'show'
     end

@@ -21,7 +21,7 @@
           <div class="row mb-3">
             <div class="col-md-5">Skill</div>
             <div class="col-md-2">:</div>
-            <div class="col-md-5"><%= f.select :skill_id, @options_for_skills1, {prompt: "Select Skill"}, class: "form-control" %></div>
+            <div class="col-md-5"><%= f.select :skill_id, @pokemon_battle.pokemon1.pokemon_skills.map { |pokemon_skill| [pokemon_skill.skill.name + " (" + pokemon_skill.current_pp.to_s + " / " + pokemon_skill.skill.max_pp.to_s + ")", pokemon_skill.skill_id] }, {prompt: "Select Skill"}, class: "form-control" %></div>
           </div>
           <div class="row mb-3">
             <div class="col-md-12">
@@ -51,7 +51,7 @@
         <div class="row mb-3">
           <div class="col-md-5">Skill</div>
           <div class="col-md-2">:</div>
-          <div class="col-md-5"><%= f.select :skill_id, @options_for_skills2, {prompt: "Select Skill"}, class: "form-control" %></div>
+          <div class="col-md-5"><%= f.select :skill_id, @pokemon_battle.pokemon2.pokemon_skills.map { |pokemon_skill| [pokemon_skill.skill.name + " (" + pokemon_skill.current_pp.to_s + " / " + pokemon_skill.skill.max_pp.to_s + ")", pokemon_skill.skill_id] }, {prompt: "Select Skill"}, class: "form-control" %></div>
         </div>
         <div class="row mb-3">
           <div class="col-md-12">
