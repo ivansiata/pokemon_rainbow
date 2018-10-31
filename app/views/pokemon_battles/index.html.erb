@@ -18,7 +18,7 @@
     <% @pokemon_battles.each do |pokemon_battle| %>
     <tr>
       <td> <%= link_to pokemon_battle.pokemon1.name, pokemon_path(pokemon_battle.pokemon1) %> </td>
-      <td> <%= link_to pokemon_battle.pokemon2.name, pokemon_path(pokemon_battle.pokemon1) %> </td>
+      <td> <%= link_to pokemon_battle.pokemon2.name, pokemon_path(pokemon_battle.pokemon2) %> </td>
       <td> <%= pokemon_battle.current_turn %> </td>
       <td> <%= pokemon_battle.state %> </td>
       <td id="action">

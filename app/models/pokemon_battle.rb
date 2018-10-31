@@ -4,7 +4,7 @@ class PokemonBattle < ApplicationRecord
   belongs_to :pokemon2, class_name: 'Pokemon'
 
   validate :pokemon_id_battle_must_be_different
-  validate :pokemons_current_hp_must_greater_than_zero
+  validate :pokemons_current_hp_must_greater_than_zero, on: :create
   validate :pokemon_id_ongoing_must_be_less_than_two, on: :create
   enumerize :state, in: [:ongoing, :finished]
 
@@ -18,12 +18,16 @@ class PokemonBattle < ApplicationRecord
   end
 
   def pokemons_current_hp_must_greater_than_zero
-    if self.pokemon1.current_health_point < 1
-      errors.add(:pokemon_1, "HP is zero")
-    end
+    if self.pokemon1.present? && self.pokemon2.present?
 
-    if self.pokemon2.current_health_point < 1
-      errors.add(:pokemon_2, "HP is zero")
+      if self.pokemon1.current_health_point < 1
+        errors.add(:pokemon_1, "HP is zero")
+      end
+
+      if self.pokemon2.current_health_point < 1
+        errors.add(:pokemon_2, "HP is zero")
+      end
+
     end
   end
 
