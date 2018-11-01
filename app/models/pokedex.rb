@@ -8,6 +8,6 @@ class Pokedex < ApplicationRecord
 
   has_many :pokemons
 
-  enumerize :element_type, in: [:normal, :fire, :fighting, :water, :flying, :grass, :poison, :electric, :ground, :phychic, :rock, :ice, :bug,
+  enumerize :element_type, in: [:normal, :fire, :fighting, :water, :flying, :grass, :poison, :electric, :ground, :psychic, :rock, :ice, :bug,
     :dragon, :ghost, :dark, :steel, :fairy]
 end

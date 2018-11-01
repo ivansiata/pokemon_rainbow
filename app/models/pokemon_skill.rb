@@ -10,13 +10,13 @@ class PokemonSkill < ApplicationRecord
 
   def skill_must_be_less_or_equal_to_four
     if PokemonSkill.where(pokemon_id: self.pokemon_id).count >= 4
-      errors.add(:pokemon_id, "Pokemon already had 4 skills")
+      errors.add(:pokemon_id, " already had 4 skills")
     end
   end
 
   def current_pp_not_greater_than_max_pp
     if self.current_pp > self.skill.max_pp
-      errors.add(:current_pp, "Cannot be greater than Max PP")
+      errors.add(:current_pp, "cannot be greater than Max PP")
     end
   end
 

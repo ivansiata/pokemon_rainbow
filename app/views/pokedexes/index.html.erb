@@ -15,7 +15,7 @@
       <th>Base Defence</th>
       <th>Base Speed</th>
       <th>Element Type</th>
-      <th>Image URL</th>
+      <th>Image</th>
       <th>Actions</th>
     </tr>
   </thead>
@@ -28,7 +28,7 @@
       <td> <%= pokedex.base_defence %> </td>
       <td> <%= pokedex.base_speed %> </td>
       <td> <%= pokedex.element_type %> </td>
-      <td> <%= pokedex.image_url %> </td>
+      <td> <%= image_tag(pokedex.image_url, height: 30, width: 30) %> </td>
       <td id="action">
         <%= link_to "edit", edit_pokedex_path(pokedex), :class => "btn btn-primary" %>
         <%= link_to "delete", pokedex, method: :delete,

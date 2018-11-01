@@ -8,6 +8,6 @@ class Skill < ApplicationRecord
   validates :max_pp, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 1 }
   validates :element_type, presence: true, length: {maximum: 45}
 
-  enumerize :element_type, in: [:normal, :fire, :fighting, :water, :flying, :grass, :poison, :electric, :ground, :phychic, :rock, :ice, :bug,
+  enumerize :element_type, in: [:normal, :fire, :fighting, :water, :flying, :grass, :poison, :electric, :ground, :psychic, :rock, :ice, :bug,
     :dragon, :ghost, :dark, :steel, :fairy]
 end
