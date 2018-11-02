@@ -1,0 +1,62 @@
+name -> harus ada, max 45 character
+
+tidak bisa save pokedex jika nama kosong
+tidak bisa save pokedex jika nama melebihi 45 character
+tidak bisa save pokedex jika nama sudah dipakai pokedex yg lain
+tidak bisa save pokedex jika base_health_point kosong
+tidak bisa save pokedex jika base_health_point kurang dari 1
+tidak bisa save pokedex jika base_health_point bukan angka
+tidak bisa save pokedex jika base_attack kosong
+tidak bisa save pokedex jika base_attack kurang dari 1
+tidak bisa save pokedex jika base_attack bukan angka
+tidak bisa save pokedex jika base_defence kosong
+tidak bisa save pokedex jika base_defence kurang dari 1
+tidak bisa save pokedex jika base_defence bukan angka
+tidak bisa save pokedex jika base_speed kosong
+tidak bisa save pokedex jika base_speed kurang dari 1
+tidak bisa save pokedex jika base_speed bukan angka
+tidak bisa save pokedex jika element tidak termasuk dalam list
+
+=================
+tidak bisa save pokedex jika nama kosong
+p = Pokedex.new
+p.name = nil
+
+assert p.save, false
+
+p.name = 'test'
+
+assert p.save, true
+
+
+Skill
+name kosong, uniq, max 45
+power kosong, integer, > 1
+max_pp kosong, integer, > 1
+element_type termasuk dalam list
+
+Pokemon
+nama kosong, uniq berdasarkan pokedex_id, length < 45
+pokedex id kosong
+max_health kosong, integer, lebih dari 1
+current_health kosong, integer, lebih dari 0, kurang dari max health
+current_experience kosong, integer, lebih dari 0
+attack kosong, integer, lebih dari 1
+defence kosong, integer, lebih dari 1
+speed kosong, integer, lebih dari 1
+level kosong, integer, lebih dari 1
+
+Pokemon Battle =
+
+
+Pokemon battle engine
+
+cek pokemon turn sesuai dengan pokemon id dari form
+cek skill attack yang digunakan termasuk dalam list
+cek current pp skill attack yang digunakan tidak 0
+cek state berubah menjadi finished jika selesai
+cek current turn bertambah
+cek pp attacker berkurang jika attack
+cek hp defender berkurang jika diserang
+cek apakah winner dan loser ditentukan setelah selesai
+cek apakah stat pemenang bertambah

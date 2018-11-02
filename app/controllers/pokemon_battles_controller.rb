@@ -13,6 +13,8 @@ class PokemonBattlesController < ApplicationController
     @pokemon_battle = PokemonBattle.new(pokemon_battle_params)
     @pokemon_battle.current_turn = 1
     @pokemon_battle.state = "ongoing"
+    @pokemon_battle.pokemon1_max_health_point = @pokemon_battle.pokemon1.max_health_point
+    @pokemon_battle.pokemon2_max_health_point = @pokemon_battle.pokemon2.max_health_point
 
     if @pokemon_battle.valid?
       @pokemon_battle.save

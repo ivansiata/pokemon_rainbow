@@ -8,7 +8,6 @@ class PokemonBattle < ApplicationRecord
   validate :pokemon_id_ongoing_must_be_less_than_two, on: :create
   enumerize :state, in: [:ongoing, :finished]
 
-
   private
 
   def pokemon_id_battle_must_be_different

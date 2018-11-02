@@ -15,7 +15,7 @@
         <div class="row mb-3 mt-2">
           <div class="col-md-5">HP</div>
           <div class="col-md-2">:</div>
-          <div class="col-md-5"><%= @pokemon_battle.pokemon1.current_health_point %> / <%= @pokemon_battle.pokemon1.max_health_point %></div>
+          <div class="col-md-5"><%= @pokemon_battle.pokemon1.current_health_point %> / <%= @pokemon_battle.pokemon1_max_health_point %></div>
         </div>
         <% if @pokemon_battle.current_turn % 2 != 0 && @pokemon_battle.state != "finished" %>
           <div class="row mb-3">
@@ -45,7 +45,7 @@
       <div class="row mb-3 mt-2">
         <div class="col-md-5">HP</div>
         <div class="col-md-2">:</div>
-        <div class="col-md-5"><%= @pokemon_battle.pokemon2.current_health_point %> / <%= @pokemon_battle.pokemon1.max_health_point %></div>
+        <div class="col-md-5"><%= @pokemon_battle.pokemon2.current_health_point %> / <%= @pokemon_battle.pokemon2_max_health_point %></div>
       </div>
       <% if @pokemon_battle.current_turn % 2 == 0 && @pokemon_battle.state != "finished" %>
         <div class="row mb-3">

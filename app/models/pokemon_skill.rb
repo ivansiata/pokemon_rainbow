@@ -15,8 +15,10 @@ class PokemonSkill < ApplicationRecord
   end
 
   def current_pp_not_greater_than_max_pp
-    if self.current_pp > self.skill.max_pp
-      errors.add(:current_pp, "cannot be greater than Max PP")
+    if self.current_pp.present?
+      if self.current_pp > self.skill.max_pp
+        errors.add(:current_pp, "cannot be greater than Max PP")
+      end
     end
   end
 
