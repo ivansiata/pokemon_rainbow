@@ -33,7 +33,7 @@ class BattleEngineTest < ActiveSupport::TestCase
 
   end
 
-  test "should not work if current turn not equal with pokemon id" do
+  test "attack should not work if current turn not equal with pokemon id" do
     battleEngine = BattleEngine.new(@pokemon_battle, @pokemon_battle.pokemon2.id, @commit, @selectedSkill)
     assert_not battleEngine.valid_next_turn?
   end
@@ -43,8 +43,8 @@ class BattleEngineTest < ActiveSupport::TestCase
     assert battleEngine.valid_next_turn?
   end
 
-  test "should not work if attack not include in pokemon skill" do
-    @selectedSkill = @skill2
+  test "should not work if attack not included in pokemon skill" do
+    @selectedSkill = @skill2.id
 
     battleEngine = BattleEngine.new(@pokemon_battle, @pokemonId, @commit, @selectedSkill)
     assert_not battleEngine.next_turn!
@@ -91,6 +91,203 @@ class BattleEngineTest < ActiveSupport::TestCase
     battleEngine.save!
 
     assert_equal attackPP, @pokemon_battle.pokemon1.pokemon_skills.find_by(skill_id: @selectedSkill).current_pp
+
+  end
+
+  test "defender HP should be decreased if attack" do
+
+    battleEngine = BattleEngine.new(@pokemon_battle, @pokemonId, @commit, @selectedSkill)
+    defenderHP = @pokemon_battle.pokemon2.current_health_point
+    battleEngine.next_turn!
+    battleEngine.save!
+
+    assert_not_equal defenderHP, @pokemon_battle.pokemon2.current_health_point
+
+  end
+
+  test "winner should be chosen if the battle ends" do
+
+    battleEngine = BattleEngine.new(@pokemon_battle, @pokemonId, @commit, @selectedSkill)
+    battleEngine.next_turn!
+    battleEngine.save!
+
+    assert_equal @pokemon1_battle.id, @pokemon_battle.pokemon_winner_id
+
+  end
+
+  test "loser should be chosen if the battle ends" do
+
+    battleEngine = BattleEngine.new(@pokemon_battle, @pokemonId, @commit, @selectedSkill)
+    battleEngine.next_turn!
+    battleEngine.save!
+
+    assert_equal @pokemon2_battle.id, @pokemon_battle.pokemon_loser_id
+
+  end
+
+  test "winner experience should be increased after winning the battle" do
+
+    battleEngine = BattleEngine.new(@pokemon_battle, @pokemonId, @commit, @selectedSkill)
+    pokemonCurrentExperience = @pokemon1_battle.current_experience
+    battleEngine.next_turn!
+    battleEngine.save!
+
+    assert_equal @pokemon1_battle.current_experience, pokemonCurrentExperience + @pokemon_battle.experience_gain
+
+  end
+
+  test "winner level should be increased a if experience pass the limit" do
+
+    battleEngine = BattleEngine.new(@pokemon_battle, @pokemonId, @commit, @selectedSkill)
+    @pokemon1_battle.current_experience = 199
+    pokemonCurrentLevel = @pokemon1_battle.level
+    battleEngine.next_turn!
+    battleEngine.save!
+
+    assert_operator @pokemon1_battle.level, :>, pokemonCurrentLevel
+
+  end
+
+  test "winner max health point should be increased if level up" do
+
+    battleEngine = BattleEngine.new(@pokemon_battle, @pokemonId, @commit, @selectedSkill)
+    @pokemon1_battle.current_experience = 199
+    pokemonCurrentMaxHealthPoint = @pokemon1_battle.max_health_point
+    battleEngine.next_turn!
+    battleEngine.save!
+
+    assert_operator @pokemon1_battle.max_health_point, :>, pokemonCurrentMaxHealthPoint
+
+  end
+
+  test "winner attack should be increased if level up" do
+
+    battleEngine = BattleEngine.new(@pokemon_battle, @pokemonId, @commit, @selectedSkill)
+    @pokemon1_battle.current_experience = 199
+    pokemonCurrentAttack = @pokemon1_battle.attack
+    battleEngine.next_turn!
+    battleEngine.save!
+
+    assert_operator @pokemon1_battle.attack, :>, pokemonCurrentAttack
+
+  end
+
+  test "winner defence should be increased if level up" do
+
+    battleEngine = BattleEngine.new(@pokemon_battle, @pokemonId, @commit, @selectedSkill)
+    @pokemon1_battle.current_experience = 199
+    pokemonCurrentDefence = @pokemon1_battle.defence
+    battleEngine.next_turn!
+    battleEngine.save!
+
+    assert_operator @pokemon1_battle.attack, :>, pokemonCurrentDefence
+
+  end
+
+  test "winner speed should be increased if level up" do
+
+    battleEngine = BattleEngine.new(@pokemon_battle, @pokemonId, @commit, @selectedSkill)
+    @pokemon1_battle.current_experience = 199
+    pokemonCurrentSpeed = @pokemon1_battle.speed
+    battleEngine.next_turn!
+    battleEngine.save!
+
+    assert_operator @pokemon1_battle.attack, :>, pokemonCurrentSpeed
+
+  end
+
+  test "surrender should not work if current turn not equal with pokemon id" do
+    @commit = "Surrender"
+    battleEngine = BattleEngine.new(@pokemon_battle, @pokemon_battle.pokemon2.id, @commit, @selectedSkill)
+    assert_not battleEngine.valid_next_turn?
+  end
+
+  test "state should be finished if attacker surrender" do
+    @commit = "Surrender"
+    battleEngine = BattleEngine.new(@pokemon_battle, @pokemonId, @commit, @selectedSkill)
+    battleEngine.next_turn!
+    battleEngine.save!
+
+    assert_equal "finished", @pokemon_battle.state
+  end
+
+  test "turn should add 1 after surrender" do
+    @commit = "Surrender"
+    battleEngine = BattleEngine.new(@pokemon_battle, @pokemonId, @commit, @selectedSkill)
+    turn = @pokemon_battle.current_turn + 1
+    battleEngine.next_turn!
+    battleEngine.save!
+    assert_equal turn, @pokemon_battle.current_turn
+  end
+
+  test "defender experience should be increased after attacker surrender" do
+    @commit = "Surrender"
+    battleEngine = BattleEngine.new(@pokemon_battle, @pokemonId, @commit, @selectedSkill)
+    pokemonCurrentExperience = @pokemon2_battle.current_experience
+    battleEngine.next_turn!
+    battleEngine.save!
+
+    assert_equal @pokemon2_battle.current_experience, pokemonCurrentExperience + @pokemon_battle.experience_gain
+
+  end
+
+  test "defender level should be increased if attacker surrender and defender level up" do
+    @commit = "Surrender"
+    battleEngine = BattleEngine.new(@pokemon_battle, @pokemonId, @commit, @selectedSkill)
+    @pokemon2_battle.current_experience = 199
+    pokemonCurrentLevel = @pokemon2_battle.level
+    battleEngine.next_turn!
+    battleEngine.save!
+
+    assert_operator @pokemon2_battle.level, :>, pokemonCurrentLevel
+
+  end
+
+  test "defender max health point should be increased if attacker surrender and defender level up" do
+    @commit = "Surrender"
+    battleEngine = BattleEngine.new(@pokemon_battle, @pokemonId, @commit, @selectedSkill)
+    @pokemon2_battle.current_experience = 199
+    pokemonCurrentMaxHealthPoint = @pokemon2_battle.max_health_point
+    battleEngine.next_turn!
+    battleEngine.save!
+
+    assert_operator @pokemon2_battle.max_health_point, :>, pokemonCurrentMaxHealthPoint
+
+  end
+
+  test "defender attack should be increased if attacker surrender and defender level up" do
+    @commit = "Surrender"
+    battleEngine = BattleEngine.new(@pokemon_battle, @pokemonId, @commit, @selectedSkill)
+    @pokemon2_battle.current_experience = 199
+    pokemonCurrentAttack = @pokemon2_battle.attack
+    battleEngine.next_turn!
+    battleEngine.save!
+
+    assert_operator @pokemon2_battle.attack, :>, pokemonCurrentAttack
+
+  end
+
+  test "defender defence should be increased if attacker surrender and defender level up" do
+    @commit = "Surrender"
+    battleEngine = BattleEngine.new(@pokemon_battle, @pokemonId, @commit, @selectedSkill)
+    @pokemon2_battle.current_experience = 199
+    pokemonCurrentDefence = @pokemon2_battle.defence
+    battleEngine.next_turn!
+    battleEngine.save!
+
+    assert_operator @pokemon2_battle.attack, :>, pokemonCurrentDefence
+
+  end
+
+  test "defender speed should be increased if attacker surrender and defender level up" do
+    @commit = "Surrender"
+    battleEngine = BattleEngine.new(@pokemon_battle, @pokemonId, @commit, @selectedSkill)
+    @pokemon2_battle.current_experience = 199
+    pokemonCurrentSpeed = @pokemon2_battle.speed
+    battleEngine.next_turn!
+    battleEngine.save!
+
+    assert_operator @pokemon2_battle.attack, :>, pokemonCurrentSpeed
 
   end
 

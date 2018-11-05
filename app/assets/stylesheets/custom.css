@@ -1,5 +1,5 @@
 #holder{
-  min-height: 87vh;
+  min-height: 81vh;
   position:relative;
 }
 
@@ -20,7 +20,8 @@
 }
 
 #holder.container{
-  padding-top: 100px;
+  padding-top: 80px;
+  margin-bottom: 60px
 }
 
 #action {

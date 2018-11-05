@@ -1,7 +1,7 @@
 class PokemonsController < ApplicationController
   include PokemonsHelper
   def index
-    @pokemons = Pokemon.paginate(page: params[:page], per_page:5)
+    @pokemons = Pokemon.order(id: :asc).paginate(page: params[:page], per_page:5)
   end
 
   def new
@@ -90,6 +90,55 @@ class PokemonsController < ApplicationController
     @pokemon.destroy
     flash[:success] = "Pokemon #{@pokemon.name} deleted!"
     redirect_to pokemons_path
+  end
+
+  def heal_all
+    pokemonOnGoing = []
+    PokemonBattle.where(state: "ongoing").each do |p|
+      pokemonOnGoing << p.pokemon1.id
+      pokemonOnGoing << p.pokemon2.id
+    end
+    pokemonsHealedId = Pokemon.all.ids - pokemonOnGoing
+    pokemonsHealedId.each do |id|
+      pokemonsHealed = Pokemon.find(id)
+      pokemonsHealed.current_health_point = Pokemon.find(id).max_health_point
+
+      pokemonsHealed.pokemon_skills.each do |pokemon_skill|
+        pokemon_skill.current_pp = pokemon_skill.skill.max_pp
+        pokemon_skill.save
+      end
+      pokemonsHealed.save
+    end
+    flash[:success] = "All Pokemon Healed Up!"
+    redirect_to pokemons_path
+  end
+
+  def heal
+    @pokemon = Pokemon.find(params[:id])
+    pokemon1IdList = PokemonBattle.where(state: "ongoing").map do |pokemon|
+      pokemon.pokemon1_id
+    end
+    pokemon2IdList = PokemonBattle.where(state: "ongoing").map do |pokemon|
+      pokemon.pokemon2_id
+    end
+
+    if !pokemon1IdList.include?(@pokemon.id) && !pokemon2IdList.include?(@pokemon.id)
+      @pokemon.current_health_point = @pokemon.max_health_point
+
+      @pokemon.pokemon_skills.each do |pokemon_skill|
+        pokemon_skill.current_pp = pokemon_skill.skill.max_pp
+        pokemon_skill.save
+      end
+      @pokemon.save
+      redirect_to pokemon_path(@pokemon)
+    else
+      @pokemon_skills = PokemonSkill.new
+       @options_for_skills = Skill.where(element_type: @pokemon.pokedex.element_type).map do |p|
+         [p.name, p.id]
+       end
+      flash.now[:danger] = "Pokemon still in ongoing battle"
+      render 'show'
+    end
   end
 
 end

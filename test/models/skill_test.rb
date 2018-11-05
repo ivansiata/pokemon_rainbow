@@ -68,7 +68,6 @@ class SkillTest < ActiveSupport::TestCase
     assert @skill.save
   end
 
-
   #max_pp
   test "should not save skill if max pp is empty" do
     @skill.max_pp = nil

@@ -4,7 +4,7 @@ class PokemonSkill < ApplicationRecord
 
   validates :skill_id, uniqueness: { scope: [:pokemon_id] }
   validates :current_pp, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
-  validate :skill_must_be_less_or_equal_to_four
+  validate :skill_must_be_less_or_equal_to_four, on: :create
   validate :current_pp_not_greater_than_max_pp
   validate :element_type_of_skill_must_be_equal_to_pokedex
 

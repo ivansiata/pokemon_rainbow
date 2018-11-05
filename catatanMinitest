@@ -46,7 +46,7 @@ defence kosong, integer, lebih dari 1
 speed kosong, integer, lebih dari 1
 level kosong, integer, lebih dari 1
 
-Pokemon Battle =
+Pokemon Battle
 
 
 Pokemon battle engine
@@ -58,5 +58,16 @@ cek state berubah menjadi finished jika selesai
 cek current turn bertambah
 cek pp attacker berkurang jika attack
 cek hp defender berkurang jika diserang
-cek apakah winner dan loser ditentukan setelah selesai
-cek apakah stat pemenang bertambah
+cek apakah winner dan loser ditentukan setelah selesai attack
+cek apakah experience pemenang bertambah attack
+cek apakah stat pemenang bertambah jika naik level
+- level
+- max_health_point
+- attack
+- defend
+- speed
+cek apakah state berubah jika surrender
+cek apakah current turn berubah jika surrender
+cek apakah winner dan loser ditentukan setelah surrender
+cek apakah experience pemenang bertambah
+cek apakah stat defender bertambah jika naik level

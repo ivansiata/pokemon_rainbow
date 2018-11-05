@@ -62,5 +62,7 @@ class PokemonBattlesController < ApplicationController
     end
   end
 
-
+  def log
+    @pokemon_battle_logs = PokemonBattleLog.where(pokemon_battle_id: params[:id])
+  end
 end

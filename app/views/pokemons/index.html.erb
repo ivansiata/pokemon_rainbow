@@ -2,7 +2,8 @@
 
 <br>
   <%= link_to "Create new pokemon", new_pokemon_path, :class => "btn btn-primary mb-2" %>
-<br>
+
+  <%= link_to "Heal all", heal_pokemons_path, :class => "btn btn-success mb-2" %>
 
 <table class="table table-bordered mb-0">
   <thead class="thead-dark">
@@ -35,6 +36,7 @@
         <%= link_to "edit", edit_pokemon_path(pokemon), :class => "btn btn-primary" %>
         <%= link_to "delete", pokemon, method: :delete,
                                   data: { confirm: "You sure?" }, :class => "btn btn-danger" %>
+        <%= link_to "heal", heal_pokemon_path(pokemon), :class => "btn btn-success mt-1" %>
       </td>
     </tr>
     <% end %>

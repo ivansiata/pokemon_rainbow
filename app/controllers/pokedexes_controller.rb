@@ -2,10 +2,13 @@ class PokedexesController < ApplicationController
   include PokedexesHelper
 
   def index
+    add_breadcrumb "Pokedexes", pokedexes_path, title: "Back to the Index"
     @pokedexes = Pokedex.paginate(page: params[:page], per_page:5)
   end
 
   def new
+    add_breadcrumb "Pokedexes", pokedexes_path, title: "Back to the Index"
+    add_breadcrumb "New Pokedex", new_pokedex_path, title: "Create new Pokedex"
     @pokedex = Pokedex.new
   end
 

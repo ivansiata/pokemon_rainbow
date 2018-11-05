@@ -9,8 +9,6 @@ class PokemonSkillTest < ActiveSupport::TestCase
     @skill = Skill.new(name: "Skill 1", power: 1, max_pp: 1, element_type: "normal")
     @skill.save
 
-    @pokedex2 = Pokedex.new(name: "Name2", base_health_point: 1, base_attack: 1, base_defence: 1, base_speed: 1, element_type: "grass")
-    @pokedex2.save
     @pokemon2 = Pokemon.new(pokedex_id: @pokedex.id, name: "Name2", level: 1, max_health_point: 1, current_health_point: 1, attack: 1, defence: 1, speed: 1, current_experience: 0)
     @pokemon2.save
 
@@ -29,12 +27,12 @@ class PokemonSkillTest < ActiveSupport::TestCase
   end
 
   #skill_id
-  test "should not save pokemon skill if skill id is not included in pokedex skills" do
+  test "should not save pokemon skill if element skill is not equal to pokedex element" do
     @pokemon_skill.skill_id = @skill2.id
     assert_not @pokemon_skill.save
   end
 
-  test "should save pokemon skill if skill id is included in pokedex skills" do
+  test "should save pokemon skilll if element skill is equal to pokedex element" do
     assert @pokemon_skill.save
   end
 
@@ -47,7 +45,7 @@ class PokemonSkillTest < ActiveSupport::TestCase
   test "should save pokemon skill if skill unique based on pokemon id" do
     @pokemon_skill.save
     duplicate_pokemon_skill = @pokemon_skill.dup
-    duplicate_pokemon_skill.skill_id = @skill2.id
+    duplicate_pokemon_skill.skill_id = @skill3.id
     assert @pokemon_skill.save
   end
 
@@ -71,7 +69,7 @@ class PokemonSkillTest < ActiveSupport::TestCase
   end
 
   #skill count
-  test "should not save pokemon skill if pokemon's skill count is 4" do
+  test "cannot add more than 4 pokemon skill" do
     @pokemon_skill.save
 
     @pokemon_skill3 = PokemonSkill.new(skill_id: @skill3.id, pokemon_id: @pokemon.id, current_pp: 1)

@@ -73,4 +73,5 @@
   <% end %>
 </center>
 </h3>
-<%= link_to "Back to Battle List", pokemon_battles_path, class: "btn btn-primary mt-5" %>
+<%= link_to "View battle logs", show_battle_log_pokemon_battle_path(@pokemon_battle), :class => "btn btn-primary" %>
+<%= link_to "Back to Battle List", pokemon_battles_path, class: "btn btn-primary" %>

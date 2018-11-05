@@ -11,6 +11,7 @@
       <th>Pokemon 2</th>
       <th>Turn</th>
       <th>Status</th>
+      <th>Winner</th>
       <th>Experience Gained</th>
       <th>Action</th>
     </tr>
@@ -22,6 +23,7 @@
       <td> <%= link_to pokemon_battle.pokemon2.name, pokemon_path(pokemon_battle.pokemon2) %> </td>
       <td> <%= pokemon_battle.current_turn %> </td>
       <td> <%= pokemon_battle.state %> </td>
+      <td> <%= pokemon_battle.pokemon_winner.name if pokemon_battle.pokemon_winner.present? %> </td>
       <td> <%= pokemon_battle.experience_gain %> </td>
       <td id="action">
         <%= link_to "Battle", pokemon_battle_path(pokemon_battle), :class => "btn btn-primary" %>

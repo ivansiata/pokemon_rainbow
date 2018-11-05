@@ -2,6 +2,7 @@ class Skill < ApplicationRecord
   extend Enumerize
   has_many :pokemon_skills
   has_many :pokemons, through: :pokemon_skills
+  has_many :pokemon_battle_logs
 
   validates :name, presence: true, uniqueness:true, length: {maximum: 45}
   validates :power, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 1 }

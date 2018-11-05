@@ -24,7 +24,8 @@ class PokemonBattleTest < ActiveSupport::TestCase
   end
 
   test "should not save pokemon battle if pokemon 1 or pokemon 2 current_hp is zero" do
-    @pokemon_battle.pokemon1.current_health_point = 0
+    @pokemon.current_health_point = 0
+    @pokemon.save
     assert_not @pokemon_battle.save
   end
 
@@ -35,6 +36,7 @@ class PokemonBattleTest < ActiveSupport::TestCase
   test "should not save pokemon battle if pokemon 1 or pokemon 2 inside ongoing battle" do
     @pokemon_battle.save
     @pokemon3 = Pokemon.new(pokedex_id: @pokedex.id, name: "Name 3", level: 1, max_health_point: 1, current_health_point: 1, attack: 1, defence: 1, speed: 1, current_experience: 0)
+    @pokemon3.save
     new_battle = PokemonBattle.new(pokemon1_id: @pokemon3.id, pokemon2_id: @pokemon2.id, current_turn: 1, state: "ongoing", pokemon_winner_id: nil, pokemon_loser_id: nil, experience_gain: 0, pokemon1_max_health_point: @pokemon.max_health_point, pokemon2_max_health_point: @pokemon2.max_health_point)
     assert_not new_battle.save
   end

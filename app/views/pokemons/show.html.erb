@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-md-12">
-    <%= link_to "Heal", "#", class: "btn btn-primary" %>
+    <%= link_to "Heal", heal_pokemon_path(@pokemon), class: "btn btn-success" %>
     <%= link_to "Edit", edit_pokemon_path(@pokemon), class: "btn btn-primary" %>
     <%= link_to "Delete", @pokemon, method: :delete,
                                   data: { confirm: "You sure?" }, class: "btn btn-danger" %>

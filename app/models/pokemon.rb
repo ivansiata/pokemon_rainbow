@@ -5,6 +5,12 @@ class Pokemon < ApplicationRecord
   has_many :pokemon_battles, class_name: 'PokemonBattle', foreign_key: 'pokemon1_id'
   has_many :pokemon_battles, class_name: 'PokemonBattle', foreign_key: 'pokemon2_id'
 
+  has_many :wins, class_name: 'PokemonBattle', foreign_key: 'pokemon_winner_id'
+  has_many :loses, class_name: 'PokemonBattle', foreign_key: 'pokemon_loser_id'
+
+  has_many :pokemon_battle_logs, class_name: 'PokemonBattleLog', foreign_key: 'pokemon1_id'
+  has_many :pokemon_battle_logs, class_name: 'PokemonBattleLog', foreign_key: 'pokemon2_id'
+
   validates :name, presence: true, uniqueness: {scope: [:pokedex_id]}, length: {maximum: 45}
   validates :pokedex_id, presence: true
 

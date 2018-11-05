@@ -12,6 +12,9 @@
   <body>
     <%= render 'layouts/navigation' %>
     <div id="holder" class="container">
+      <ol class="breadcrumb">
+        <%= render_breadcrumbs tag: :li, separator: "&nbsp / &nbsp" %>
+      </ol>
       <% flash.each do |message_type, message| %>
         <div class="alert alert-<%= message_type %>"><%= message %></div>
       <% end %>

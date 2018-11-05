@@ -116,12 +116,12 @@ class PokemonTest < ActiveSupport::TestCase
     assert_not @pokemon.save
   end
 
-  test "should save pokemon if current health point is less than max_health_point" do
+  test "should save pokemon if current health point is less than or equal to max_health_point" do
     @pokemon.current_health_point = @pokemon.max_health_point
     assert @pokemon.save
   end
 
-  #current expereience
+  #current experience
   test "should not save pokemon if current expereience is empty" do
     @pokemon.current_experience = nil
     assert_not @pokemon.save

@@ -2,6 +2,9 @@ class PokemonBattle < ApplicationRecord
   extend Enumerize
   belongs_to :pokemon1, class_name: 'Pokemon'
   belongs_to :pokemon2, class_name: 'Pokemon'
+  belongs_to :pokemon_winner, class_name: 'Pokemon', foreign_key: 'pokemon_winner_id', optional: true
+  belongs_to :pokemon_loser, class_name: 'Pokemon', foreign_key: 'pokemon_loser_id', optional:true
+  has_many  :pokemon_battle_logs
 
   validate :pokemon_id_battle_must_be_different
   validate :pokemons_current_hp_must_greater_than_zero, on: :create
