@@ -2,14 +2,16 @@ class PokedexesController < ApplicationController
   include PokedexesHelper
 
   def index
-    add_breadcrumb "Pokedexes", pokedexes_path, title: "Back to the Index"
     @pokedexes = Pokedex.paginate(page: params[:page], per_page:5)
+    add_breadcrumb "Home", root_path, title: "Back to Home"
+    add_breadcrumb "Pokedex List", pokedexes_path, title: "Pokedex List"
   end
 
   def new
-    add_breadcrumb "Pokedexes", pokedexes_path, title: "Back to the Index"
-    add_breadcrumb "New Pokedex", new_pokedex_path, title: "Create new Pokedex"
     @pokedex = Pokedex.new
+    add_breadcrumb "Home", root_path, title: "Home"
+    add_breadcrumb "Pokedex List", pokedexes_path, title: "Back to Pokedex List"
+    add_breadcrumb "New Pokedex", new_pokedex_path, title: "Create New Pokedex"
   end
 
   def create
@@ -24,10 +26,17 @@ class PokedexesController < ApplicationController
 
   def show
     @pokedex = Pokedex.find(params[:id])
+    add_breadcrumb "Home", root_path, title: "Back to Home"
+    add_breadcrumb "Pokedex List", pokedexes_path, title: "Back to Pokedex List"
+    add_breadcrumb @pokedex.name, pokedex_path(@pokedex)
+
   end
 
   def edit
     @pokedex = Pokedex.find(params[:id])
+    add_breadcrumb "Home", root_path, title: "Back to Home"
+    add_breadcrumb "Pokedex List", pokedexes_path, title: "Back to Pokedex List"
+    add_breadcrumb @pokedex.name, edit_pokedex_path(@pokedex)
   end
 
   def update

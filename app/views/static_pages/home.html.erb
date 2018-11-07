@@ -4,6 +4,64 @@
       <%= image_tag("pokemon-logo.png",height: '500', width: '800') %>
       <h2>Welcome to Pokemon Game</h2>
      </div>
+     <ul class="nav nav-pills col-centered" role="tablist" id="tabElement">
+      <li class="nav-item">
+        <%= link_to 'global', root_path("element_type" => 'global'), class: "nav-link #{'active' if @element == 'global' }" %>
+      </li>
+      <% Pokedex.element_type.options.each do |option| %>
+        <li class="nav-item">
+          <%= link_to option[1], root_path("element_type" => option[1]), class: "nav-link #{'active' if @element == option[1] }" %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+
+  <div class="row mt-4">
+    <div class="col-md-6">
+      <div id="container" style="width: 500px; height: 400px; margin: 0 auto">
+        <div class="card">
+          <div class="card-header text-center">Most Win Pokemon</div>
+          <div class="card-body"><%= column_chart Statistic.most_win(@element), label: "Value" %></div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card">
+          <div class="card-header text-center">Most Lose Pokemon</div>
+          <div class="card-body"><%= column_chart Statistic.most_lose(@element), label: "Value" %></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <div class="col-md-6">
+      <div id="container" style="width: 500px; height: 400px; margin: 0 auto">
+        <div class="card">
+          <div class="card-header text-center">Most Used Skill</div>
+          <div class="card-body"><%= column_chart Statistic.most_skill_used(@element), label: "Value" %></div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card">
+          <div class="card-header text-center">Most Pokemon Picked</div>
+          <div class="card-body"><%= column_chart Statistic.most_picked_pokemon(@element), label: "Value" %></div>
+        </div>
+      </div>
+    </div>
+
+  <div class="row mt-4">
+    <div class="col-md-12">
+      <div id="container" style="width: 500px; height: 400px; margin: 0 auto">
+        <div class="card">
+          <div class="card-header text-center">Most Surrender Pokemon</div>
+          <div class="card-body"><%= column_chart Statistic.most_surrender_pokemon(@element), label: "Value" %></div>
+      </div>
+    </div>
+  </div>
 
   </div>
+
+
 </div>
+

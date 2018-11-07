@@ -3,10 +3,17 @@ class SkillsController < ApplicationController
 
   def index
     @skills = Skill.paginate(page: params[:page], per_page:5)
+
+    add_breadcrumb "Home", root_path, title: "Back to Home"
+    add_breadcrumb "Skills", skills_path, title: "Skill List"
   end
 
   def new
     @skill = Skill.new
+
+    add_breadcrumb "Home", root_path, title: "Back to Home"
+    add_breadcrumb "Skills", skills_path, title: "Back to Skill List"
+    add_breadcrumb "New Skill", new_skill_path, title: "New Skill"
   end
 
   def create
@@ -21,9 +28,16 @@ class SkillsController < ApplicationController
 
   def show
     @skill = Skill.find(params[:id])
+    add_breadcrumb "Home", root_path, title: "Back to Home"
+    add_breadcrumb "Skills", skills_path, title: "Back to Skill List"
+    add_breadcrumb @skill.name, skill_path(@skill)
   end
 
   def edit
+    @skill = Skill.find(params[:id])
+    add_breadcrumb "Home", root_path, title: "Back to Home"
+    add_breadcrumb "Skills", skills_path, title: "Back to Skill List"
+    add_breadcrumb @skill.name, edit_skill_path(@skill)
     @skill = Skill.find(params[:id])
   end
 

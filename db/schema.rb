@@ -54,6 +54,7 @@ ActiveRecord::Schema.define(version: 2018_11_05_021205) do
     t.datetime "updated_at", null: false
     t.integer "pokemon1_id", null: false
     t.integer "pokemon2_id", null: false
+    t.string "battle_type", null: false
   end
 
   create_table "pokemon_skills", force: :cascade do |t|
@@ -94,9 +95,7 @@ ActiveRecord::Schema.define(version: 2018_11_05_021205) do
   add_foreign_key "pokemon_battle_logs", "pokemons", column: "defender_id"
   add_foreign_key "pokemon_battle_logs", "skills"
   add_foreign_key "pokemon_battles", "pokemons", column: "pokemon1_id"
-  add_foreign_key "pokemon_battles", "pokemons", column: "pokemon1_max_health_point"
   add_foreign_key "pokemon_battles", "pokemons", column: "pokemon2_id"
-  add_foreign_key "pokemon_battles", "pokemons", column: "pokemon2_max_health_point"
   add_foreign_key "pokemon_skills", "pokemons"
   add_foreign_key "pokemon_skills", "skills"
   add_foreign_key "pokemons", "pokedexes"

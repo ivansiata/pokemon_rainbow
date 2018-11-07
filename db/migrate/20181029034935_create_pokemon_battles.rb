@@ -17,7 +17,6 @@ class CreatePokemonBattles < ActiveRecord::Migration[5.2]
     add_column :pokemon_battles, :pokemon2_id, :integer, null: false
     add_foreign_key :pokemon_battles, :pokemons, column: :pokemon2_id
 
-    add_foreign_key :pokemon_battles, :pokemons, column: :pokemon1_max_health_point
-    add_foreign_key :pokemon_battles, :pokemons, column: :pokemon2_max_health_point
+    add_column :pokemon_battles, :battle_type, :string, null: false
   end
 end

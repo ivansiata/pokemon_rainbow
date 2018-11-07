@@ -14,3 +14,7 @@
 //= require activestorage
 //= require turbolinks
 //= require_tree .
+//= require highcharts
+// to get the new features in 2.3.0:
+//= require highcharts/highcharts-more
+//= require chartkick

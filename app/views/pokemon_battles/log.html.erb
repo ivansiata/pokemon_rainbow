@@ -9,6 +9,7 @@
       <th>Attacker Current Health</th>
       <th>Defender Current Health</th>
       <th>Skill Used</th>
+      <th>Damage</th>
       <th>Action Type</th>
     </tr>
   </thead>
@@ -21,10 +22,10 @@
       <td> <%= pokemon_battle_log.attacker_current_health_point %> </td>
       <td> <%= pokemon_battle_log.defender_current_health_point %> </td>
       <td> <%= pokemon_battle_log.skill.name if pokemon_battle_log.skill.present? %> </td>
+      <td> <%= pokemon_battle_log.damage %> </td>
       <td> <%= pokemon_battle_log.action_type %> </td>
     </tr>
     <% end %>
   </tbody>
 </table>
 <br>
-<%= link_to "Back", pokemon_battle_path(@pokemon_battle_logs.first.pokemon_battle_id), class: "btn btn-primary" %>

@@ -21,7 +21,7 @@ class BattleEngineTest < ActiveSupport::TestCase
     @pokemon2_skill = PokemonSkill.new(skill_id: @skill2.id, pokemon_id: @pokemon2.id, current_pp: 1)
     @pokemon2_skill.save
 
-    @pokemon_battle = PokemonBattle.new(pokemon1_id: @pokemon1.id, pokemon2_id: @pokemon2.id, current_turn: 1, state: "ongoing", pokemon_winner_id: nil, pokemon_loser_id: nil, experience_gain: 0, pokemon1_max_health_point: @pokemon1.max_health_point, pokemon2_max_health_point: @pokemon2.max_health_point)
+    @pokemon_battle = PokemonBattle.new(pokemon1_id: @pokemon1.id, pokemon2_id: @pokemon2.id, current_turn: 1, state: "ongoing", pokemon_winner_id: nil, pokemon_loser_id: nil, experience_gain: 0, pokemon1_max_health_point: @pokemon1.max_health_point, pokemon2_max_health_point: @pokemon2.max_health_point, battle_type: 3)
     @pokemon_battle.save
 
     @pokemon1_battle = @pokemon_battle.pokemon1

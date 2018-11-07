@@ -14,5 +14,6 @@ Rails.application.routes.draw do
 
   resources :pokemon_battles do
     get '/log', to: 'pokemon_battles#log', as: "show_battle_log", on: :member
+    get '/auto_battle', to: 'pokemon_battles#auto_battle', as: "auto_battle", on: :member
   end
 end

@@ -2,11 +2,16 @@ class PokemonsController < ApplicationController
   include PokemonsHelper
   def index
     @pokemons = Pokemon.order(id: :asc).paginate(page: params[:page], per_page:5)
+    add_breadcrumb "Home", root_path, title: "Back to Home"
+    add_breadcrumb "Pokemon List", pokemons_path, title: "Pokemon List"
   end
 
   def new
     @pokemon = Pokemon.new
     @pokemon_skills = PokemonSkill.new
+    add_breadcrumb "Home", root_path, title: "Back to Home"
+    add_breadcrumb "Pokemon List", pokemons_path, title: "Back to Pokemon List"
+    add_breadcrumb "New Pokemon", new_pokemon_path, title: "New Pokemon"
   end
 
   def create
@@ -68,10 +73,16 @@ class PokemonsController < ApplicationController
     @options_for_skills = Skill.where(element_type: @pokemon.pokedex.element_type).map do |p|
       [p.name, p.id]
     end
+    add_breadcrumb "Home", root_path, title: "Back to Home"
+    add_breadcrumb "Pokemon List", pokemons_path, title: "Back to Pokemon List"
+    add_breadcrumb @pokemon.name, pokemon_path(@pokemon)
   end
 
   def edit
     @pokemon = Pokemon.find(params[:id])
+    add_breadcrumb "Home", root_path, title: "Back to Home"
+    add_breadcrumb "Pokemon List", pokemons_path, title: "Back to Pokemon List"
+    add_breadcrumb @pokemon.name, edit_pokemon_path(@pokemon)
   end
 
   def update

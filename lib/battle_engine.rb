@@ -1,6 +1,5 @@
 class BattleEngine
   attr_accessor :errors
-  attr_accessor :stats
 
   def initialize(pokemon_battle, pokemonId, commit, selectedSkill)
     @pokemon_battle = pokemon_battle
@@ -56,10 +55,9 @@ class BattleEngine
                   @attacker.attack = @attacker.attack + output[:attack_point]
                   @attacker.defence = @attacker.defence + output[:defence_point]
                   @attacker.speed = @attacker.speed + output[:speed_point]
-                  @stats << @attacker.max_health_point + output[:health_point]
-
                 end
               end
+
               @pokemon_battle_logs.pokemon_battle_id = @pokemon_battle.id
               @pokemon_battle_logs.turn =  @pokemon_battle.current_turn - 1
               @pokemon_battle_logs.skill_id = @attackerSkill.skill.id
@@ -69,6 +67,7 @@ class BattleEngine
               @pokemon_battle_logs.defender_id = @defender.id
               @pokemon_battle_logs.defender_current_health_point = @defender.current_health_point
               @pokemon_battle_logs.action_type = @commit
+
               return true
           else
             @errors << "Skill PP is empty"
@@ -100,15 +99,16 @@ class BattleEngine
             @defender.speed = @defender.speed + output[:speed_point]
 
          end
+
          @pokemon_battle_logs.pokemon_battle_id = @pokemon_battle.id
-          @pokemon_battle_logs.turn =  @pokemon_battle.current_turn - 1
-          @pokemon_battle_logs.skill_id = nil
-          @pokemon_battle_logs.damage = 0
-          @pokemon_battle_logs.attacker_id = @attacker.id
-          @pokemon_battle_logs.attacker_current_health_point = @attacker.current_health_point
-          @pokemon_battle_logs.defender_id = @defender.id
-          @pokemon_battle_logs.defender_current_health_point = @defender.current_health_point
-          @pokemon_battle_logs.action_type = @commit
+         @pokemon_battle_logs.turn =  @pokemon_battle.current_turn - 1
+         @pokemon_battle_logs.skill_id = nil
+         @pokemon_battle_logs.damage = 0
+         @pokemon_battle_logs.attacker_id = @attacker.id
+         @pokemon_battle_logs.attacker_current_health_point = @attacker.current_health_point
+         @pokemon_battle_logs.defender_id = @defender.id
+         @pokemon_battle_logs.defender_current_health_point = @defender.current_health_point
+         @pokemon_battle_logs.action_type = @commit
          return true
       end
   end
@@ -120,5 +120,7 @@ class BattleEngine
     @pokemon_battle.save
     @pokemon_battle_logs.save
   end
+
+
 
 end

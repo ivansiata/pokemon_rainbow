@@ -1,3 +1,7 @@
+<%= link_to "View battle logs", show_battle_log_pokemon_battle_path(@pokemon_battle), :class => "btn btn-primary" %>
+<% if @pokemon_battle.state != "finished" %>
+  <%= link_to "Auto Battle",auto_battle_pokemon_battle_path(@pokemon_battle), :class => "btn btn-primary" %>
+<% end %>
 <center class="mb-5">
   <h1>Pokemon Battle</h1>
   <h4>State : <%= @pokemon_battle.state %></h4>
@@ -73,5 +77,4 @@
   <% end %>
 </center>
 </h3>
-<%= link_to "View battle logs", show_battle_log_pokemon_battle_path(@pokemon_battle), :class => "btn btn-primary" %>
-<%= link_to "Back to Battle List", pokemon_battles_path, class: "btn btn-primary" %>
+

@@ -4,13 +4,13 @@ class PokemonBattle < ApplicationRecord
   belongs_to :pokemon2, class_name: 'Pokemon'
   belongs_to :pokemon_winner, class_name: 'Pokemon', foreign_key: 'pokemon_winner_id', optional: true
   belongs_to :pokemon_loser, class_name: 'Pokemon', foreign_key: 'pokemon_loser_id', optional:true
-  has_many  :pokemon_battle_logs
+  has_many  :pokemon_battle_logs, dependent: :destroy
 
   validate :pokemon_id_battle_must_be_different
   validate :pokemons_current_hp_must_greater_than_zero, on: :create
   validate :pokemon_id_ongoing_must_be_less_than_two, on: :create
   enumerize :state, in: [:ongoing, :finished]
-
+  enumerize :battle_type, in: [:vs_ai, :auto, :manual]
   private
 
   def pokemon_id_battle_must_be_different

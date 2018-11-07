@@ -4,7 +4,6 @@
     <%= link_to "Edit", edit_pokemon_path(@pokemon), class: "btn btn-primary" %>
     <%= link_to "Delete", @pokemon, method: :delete,
                                   data: { confirm: "You sure?" }, class: "btn btn-danger" %>
-    <%= link_to "Back to Pokemon List", pokemons_path, class: "btn btn-primary" %>
     <br><br>
     <div class="row">
       <div class="col-md-6"><%= image_tag(@pokemon.pokedex.image_url, height: '400', width: '400') %></div>
@@ -15,6 +14,10 @@
           </div>
         <br>
           <div class="col-md-12">
+            <div class="row mb-3">
+              <div class="col-md-6">Elemenet Type :</div>
+              <div class="col-md-6"> <%= @pokemon.pokedex.element_type %></div>
+            </div>
 
             <div class="row mb-3">
               <div class="col-md-6">Level :</div>
