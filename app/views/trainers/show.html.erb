@@ -1,0 +1,89 @@
+<br>
+<h2><%= @trainer.name %></h2>
+<br>
+<p>Email : <%= @trainer.email %></p>
+
+<% if @pokemon_trainer.errors.present? %>
+      <div class="alert alert-danger">
+        <% @pokemon_trainer.errors.full_messages.each do |error| %>
+            <p> <%= error %></p>
+        <% end %>
+      </div>
+    <% end %>
+
+<div class="row">
+
+  <div class="col-md-12">
+    <%= form_for(:pokemon_trainer, url: create_pokemon_trainer_trainer_path(@trainer), :html => {class: 'inline-form'}) do |f| %>
+      <div class="row mb-3 mt-3">
+        <div class="col-md-1 text-center"><%= f.label "Add pokemon", class: ""%></div>
+        <div class="col-md-4"><%= f.select :pokemon_id, Pokemon.all.map { |p| [p.name, p.id] }, {prompt: "Select Pokemon"}, class: "form-control" %></div>
+        <div class="col-md-1"><%= f.submit "Save", class: "btn btn-primary"%></div>
+      </div>
+    <% end %>
+
+    <table class="table table-bordered mb-0 mt-2">
+      <thead class="thead-dark">
+        <tr>
+          <th>Name</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @trainer.pokemon_trainers.each do |pokemon_trainer| %>
+        <tr>
+          <td><%= link_to pokemon_trainer.pokemon.name, pokemon_path(pokemon_trainer.pokemon) %></td>
+          <td><%= link_to "delete", destroy_pokemon_trainer_trainer_path(pokemon_trainer.trainer_id, pokemon_trainer.pokemon_id), method: :delete,
+                              data: { confirm: "You sure?" }, :class => "btn btn-danger" %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+  </div>
+</div>
+
+<div class="row mt-4">
+  <div class="col-md-6">
+    <div id="container" style="width: 500px; height: 400px; margin: 0 auto">
+      <div class="card">
+        <div class="card-header text-center">Most Chosen Pokemon to Battle</div>
+        <div class="card-body"><%= column_chart Statistic.most_chosen_pokemon_to_battle_by_trainer(@trainer.id), label: "Value" %></div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="card">
+        <div class="card-header text-center">Pokemon Win Rate</div>
+        <div class="card-body"><%= bar_chart Statistic.pokemon_win_rate_by_trainer(@trainer.id), label: "Value", suffix: "%"  %></div>
+    </div>
+  </div>
+</div>
+
+<div class="row mt-4">
+  <div class="col-md-6">
+    <div id="container" style="width: 500px; height: 400px; margin: 0 auto">
+      <div class="card">
+        <div class="card-header text-center">Pokemon Most Win</div>
+        <div class="card-body"><%= line_chart Statistic.most_win_by_pokemon_trainer(@trainer.id) %></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header text-center">Pokemon Most Lose</div>
+      <div class="card-body"><%= line_chart Statistic.most_lose_by_pokemon_trainer(@trainer.id), label: "Value" %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row mt-4">
+  <div class="col-md-12">
+    <div class="card">
+        <div class="card-body"><%= pie_chart Statistic.pokemon_percentage_by_pokemon_trainer(@trainer.id), title: 'Element Type of Pokemon Percentage', label: "Value", suffix: "%" %>
+        </div>
+    </div>
+  </div>
+</div>

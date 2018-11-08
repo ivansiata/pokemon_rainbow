@@ -2,15 +2,15 @@
   <div class="row">
      <div class="col-centered">
       <%= image_tag("pokemon-logo.png",height: '500', width: '800') %>
-      <h2>Welcome to Pokemon Game</h2>
+      <h2 class = "mb-4">Welcome to Pokemon Game</h2>
      </div>
      <ul class="nav nav-pills col-centered" role="tablist" id="tabElement">
       <li class="nav-item">
-        <%= link_to 'global', root_path("element_type" => 'global'), class: "nav-link #{'active' if @element == 'global' }" %>
+        <%= link_to 'global', root_path("element_type" => 'global'), class: "nav-link #{'active' if @element == 'global' } p-2" %>
       </li>
       <% Pokedex.element_type.options.each do |option| %>
         <li class="nav-item">
-          <%= link_to option[1], root_path("element_type" => option[1]), class: "nav-link #{'active' if @element == option[1] }" %>
+          <%= link_to option[1], root_path("element_type" => option[1]), class: "nav-link #{'active' if @element == option[1] } p-2" %>
         </li>
       <% end %>
     </ul>
@@ -21,14 +21,14 @@
       <div id="container" style="width: 500px; height: 400px; margin: 0 auto">
         <div class="card">
           <div class="card-header text-center">Most Win Pokemon</div>
-          <div class="card-body"><%= column_chart Statistic.most_win(@element), label: "Value" %></div>
+          <div class="card-body"><%= column_chart Statistic.top_5_pokemon_winner(@element), label: "Value" %></div>
         </div>
       </div>
     </div>
     <div class="col-md-6">
       <div class="card">
           <div class="card-header text-center">Most Lose Pokemon</div>
-          <div class="card-body"><%= column_chart Statistic.most_lose(@element), label: "Value" %></div>
+          <div class="card-body"><%= pie_chart Statistic.top_5_pokemon_loser(@element), label: "Value" %></div>
       </div>
     </div>
   </div>
@@ -38,14 +38,14 @@
       <div id="container" style="width: 500px; height: 400px; margin: 0 auto">
         <div class="card">
           <div class="card-header text-center">Most Used Skill</div>
-          <div class="card-body"><%= column_chart Statistic.most_skill_used(@element), label: "Value" %></div>
+          <div class="card-body"><%= bar_chart Statistic.top_5_skill_used(@element), label: "Value" %></div>
         </div>
       </div>
     </div>
     <div class="col-md-6">
       <div class="card">
           <div class="card-header text-center">Most Pokemon Picked</div>
-          <div class="card-body"><%= column_chart Statistic.most_picked_pokemon(@element), label: "Value" %></div>
+          <div class="card-body"><%= line_chart Statistic.top_5_picked_pokemon_in_battles(@element), label: "Value" %></div>
         </div>
       </div>
     </div>
@@ -55,7 +55,7 @@
       <div id="container" style="width: 500px; height: 400px; margin: 0 auto">
         <div class="card">
           <div class="card-header text-center">Most Surrender Pokemon</div>
-          <div class="card-body"><%= column_chart Statistic.most_surrender_pokemon(@element), label: "Value" %></div>
+          <div class="card-body"><%= area_chart Statistic.top_5_surrender_pokemon_in_battles(@element), label: "Value" %></div>
       </div>
     </div>
   </div>

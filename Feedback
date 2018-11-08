@@ -1,9 +1,3 @@
 Feedback:
-- battle log tampilin damage x
-- Pokemon Battle, battle type diganti jadi string (inclusion dalam 3 type tadi AI vs AI, Player VS AI, Player VS Player) x
-- BattleEngineAi ==> AiBattleEngine / AutoBattleEngine x
-- commit ga perlu di kirim di library AI Engine x
-- jangan sampai buat perubahan di dalam library / resource untuk ngesupport minitest x
-- method auto_battle dibuat pake bang (!) ==> auto_battle! x
-- pindahkan logic vs_ai / manual ke dalam library BattleEngine ?
-- persimple logic vs_ai/manual ketika execute next turn supaya tidak ada pengulangan code yg tidak perlu x
+- chart nya dibuat variasi
+- nama method diganti

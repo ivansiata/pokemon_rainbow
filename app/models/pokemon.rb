@@ -1,5 +1,8 @@
 class Pokemon < ApplicationRecord
   belongs_to :pokedex
+  has_one :pokemon_trainer
+  has_one :trainer
+
   has_many :pokemon_skills
   has_many :skills, through: :pokemon_skills
   has_many :pokemon_battles, class_name: 'PokemonBattle', foreign_key: 'pokemon1_id'

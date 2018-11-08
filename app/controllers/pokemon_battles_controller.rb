@@ -27,6 +27,12 @@ class PokemonBattlesController < ApplicationController
     end
 
     if @pokemon_battle.valid?
+
+      if @pokemon_battle.pokemon1.pokemon_trainer.present?
+        pokemon_trainer = @pokemon_battle.pokemon1.pokemon_trainer
+        pokemon_trainer.battle_count = pokemon_trainer.battle_count + 1
+        pokemon_trainer.save
+      end
       @pokemon_battle.save
       if @pokemon_battle.battle_type == 'auto'
         autoBattleEngine = AiBattleEngine.new(@pokemon_battle)

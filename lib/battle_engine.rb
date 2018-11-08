@@ -44,6 +44,18 @@ class BattleEngine
                 @pokemon_battle.pokemon_loser_id = @defender.id
                 @pokemon_battle.pokemon_winner_id = @attacker.id
 
+                if @attacker.pokemon_trainer.present?
+                  pokemon_trainer_win = @attacker.pokemon_trainer
+                  pokemon_trainer_win.win_count = pokemon_trainer_win.win_count + 1
+                  pokemon_trainer_win.save
+                end
+
+                if @defender.pokemon_trainer.present?
+                  pokemon_trainer_lose = @defender.pokemon_trainer
+                  pokemon_trainer_lose.lose_count = pokemon_trainer_lose.lose_count + 1
+                  pokemon_trainer_lose.save
+                end
+
                 experience_gain = PokemonBattleCalculator.calculate_experience(@defender.level)
                 @attacker.current_experience = @attacker.current_experience + experience_gain
                 @pokemon_battle.experience_gain = experience_gain
@@ -88,6 +100,18 @@ class BattleEngine
          experience_gain = PokemonBattleCalculator.calculate_experience(@attacker.level)
          @defender.current_experience = @defender.current_experience + experience_gain
          @pokemon_battle.experience_gain = experience_gain
+
+         if @defender.pokemon_trainer.present?
+            pokemon_trainer_win = @defender.pokemon_trainer
+            pokemon_trainer_win.win_count = pokemon_trainer_win.win_count + 1
+            pokemon_trainer_win.save
+          end
+
+          if @attacker.pokemon_trainer.present?
+            pokemon_trainer_lose = @attacker.pokemon_trainer
+            pokemon_trainer_lose.lose_count = pokemon_trainer_lose.lose_count + 1
+            pokemon_trainer_lose.save
+          end
 
          while PokemonBattleCalculator.level_up?(@defender.level, @defender.current_experience)
 

@@ -1,0 +1,30 @@
+<br>
+<%= form_for(@trainer, :html => {class: 'inline-form'}) do |f| %>
+<% if @trainer.errors.present? %>
+  <div class="alert alert-danger">
+    <% @trainer.errors.full_messages.each do |error| %>
+
+        <p> <%= error %></p>
+
+    <% end %>
+  </div>
+<% end %>
+
+  <div class="row mb-3">
+    <div class="col-md-3"><%= f.label :name %></div>
+    <div class="col-md-9"> <%= f.text_field :name, class: "form-control" %></div>
+  </div>
+
+  <div class="row mb-3">
+    <div class="col-md-3"><%= f.label :email %></div>
+    <div class="col-md-9"> <%= f.text_field :email, class: "form-control" %></div>
+  </div>
+
+  <div class="row mb-3">
+    <div class="col-md-3"><%= f.label :password_digest %></div>
+    <div class="col-md-9"> <%= f.password_field :password_digest, class: "form-control" %></div>
+  </div>
+
+  <span><%= f.submit 'Save', class: "btn btn-primary mr-2" %></span>
+
+<% end %>
